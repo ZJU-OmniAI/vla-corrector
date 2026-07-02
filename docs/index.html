@@ -1,163 +1,235 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>VLA-Corrector</title>
     <meta
       name="description"
-      content="VLA-Corrector: lightweight detect-and-correct inference for adaptive action horizons in action-chunked VLA policies."
+      content="VLA-Corrector is a lightweight detect-and-correct inference framework for adaptive action horizons in action-chunked VLA policies."
     />
+    <link rel="icon" href="assets/images/vla-corrector-mark.svg" />
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
     <header class="site-header">
-      <nav class="nav">
-        <a class="brand" href="#top">VLA-Corrector</a>
-        <div class="nav-links">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="#top" aria-label="VLA-Corrector home">
+          <img src="assets/images/vla-corrector-mark.svg" alt="" />
+          <span>VLA-Corrector</span>
+        </a>
+        <div class="nav-links" id="nav-links">
+          <a href="#overview">Overview</a>
           <a href="#method">Method</a>
-          <a href="#experiments">Experiments</a>
+          <a href="#results">Results</a>
           <a href="#usage">Usage</a>
           <a href="#citation">Citation</a>
+          <a href="https://github.com/ZJU-OmniAI/vla-corrector">GitHub</a>
         </div>
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" data-theme-toggle>
+          <span class="theme-icon" aria-hidden="true">◐</span>
+          <span class="theme-label">Theme</span>
+        </button>
       </nav>
     </header>
 
     <main id="top">
       <section class="hero">
-        <div class="hero-inner">
-          <p class="eyebrow">Adaptive action horizons for embodied VLA policies</p>
-          <h1>VLA-Corrector</h1>
-          <p class="subtitle">VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon</p>
-          <p class="lead">
-            A lightweight ~40M external latent dynamics corrector that monitors open-loop VLA execution,
-            interrupts stale action chunks, and guides recovery replanning without retraining the frozen VLA backbone.
-          </p>
-          <p class="authors">
-            Yi Pan, Miao Pan, Qi Lu, Jiaming Huang, Man Zhang, Wenqi Zhang<br />
-            Zhejiang University
-          </p>
-          <div class="hero-actions">
-            <a class="button primary" href="https://github.com/ZJU-OmniAI/vla-corrector">Code</a>
-            <a class="button" href="https://github.com/ZJU-OmniAI/vla-corrector#readme">README</a>
-            <span class="button muted">Paper: Coming soon</span>
-            <span class="button muted">arXiv: Coming soon</span>
-            <a class="button" href="#citation">BibTeX</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section abstract">
-        <div class="section-head">
-          <p class="eyebrow">Abstract</p>
-          <h2>Detect drift, truncate stale chunks, and replan toward recovery.</h2>
-        </div>
-        <p>
-          Action-chunked VLA policies reduce policy-call frequency by executing several predicted actions
-          before querying the model again. This creates an open-loop blind spot: fresh observations arrive,
-          but the policy keeps following queued actions until the fixed horizon ends. VLA-Corrector adds a
-          lightweight detect-and-correct pathway that monitors latent visual dynamics, detects persistent
-          drift, truncates stale actions, and applies Online Gradient Guidance to the next recovery replan.
-        </p>
-      </section>
-
-      <section class="section motivation">
-        <div class="section-head">
-          <p class="eyebrow">Motivation</p>
-          <h2>Mitigating blind spots in open-loop VLA control</h2>
-        </div>
-        <div class="grid two">
-          <div class="panel">
-            <h3>Why action chunks drift</h3>
-            <p>
-              Larger action horizons amortize expensive VLA inference, but the robot may continue executing
-              stale actions after slippage, pose drift, collision, or online disturbance. The paper identifies
-              this as an open-loop blind spot in action-chunked VLA policies.
+        <div class="hero-shell">
+          <div class="hero-copy">
+            <p class="eyebrow">Embodied AI · Vision-Language-Action · Action correction</p>
+            <h1>VLA-Corrector</h1>
+            <p class="hero-subtitle">
+              A ~40M-parameter corrector for mitigating blind spots in open-loop VLA execution.
+            </p>
+            <p class="hero-description">
+              VLA-Corrector keeps the VLA backbone frozen and adds a lightweight detect-and-correct pathway:
+              monitor latent visual dynamics, interrupt stale action chunks, and guide the next recovery replan.
+            </p>
+            <div class="hero-actions" aria-label="Project links">
+              <a class="button primary" href="https://github.com/ZJU-OmniAI/vla-corrector">Code</a>
+              <a class="button" href="https://github.com/ZJU-OmniAI/vla-corrector#readme">README</a>
+              <span class="button muted">Paper: Coming soon</span>
+              <span class="button muted">arXiv: Coming soon</span>
+              <a class="button" href="#citation">BibTeX</a>
+            </div>
+            <div class="chips" aria-label="Project keywords">
+              <span>Open-loop execution</span>
+              <span>Latent dynamics</span>
+              <span>Adaptive horizon</span>
+              <span>OGG recovery</span>
+            </div>
+            <p class="authors">
+              Yi Pan, Miao Pan, Qi Lu, Jiaming Huang, Man Zhang, Wenqi Zhang · Zhejiang University
             </p>
           </div>
-          <div class="panel">
-            <h3>Why not query every step?</h3>
+
+          <div class="hero-visual" aria-label="VLA-Corrector pipeline diagram">
+            <div class="visual-topline">
+              <span>Detect-and-correct rollout</span>
+              <strong>Frozen VLA + external corrector</strong>
+            </div>
+            <div class="pipeline-card">
+              <div class="flow-node input">Observation + Instruction</div>
+              <div class="flow-arrow">↓</div>
+              <div class="flow-node policy">Base VLA Policy</div>
+              <div class="flow-arrow">↓</div>
+              <div class="flow-node chunk">Queued Action Chunk</div>
+              <div class="flow-split">
+                <div class="flow-node monitor">LVM Drift Monitor</div>
+                <div class="flow-node corrector">Truncate + OGG Replan</div>
+              </div>
+              <div class="flow-arrow">↓</div>
+              <div class="flow-node output">Corrected Robot / Simulation Execution</div>
+            </div>
+            <div class="visual-note">
+              Stable phases keep long chunks. Persistent drift triggers corrective replanning.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="overview" class="section">
+        <div class="section-label">01 Overview</div>
+        <div class="section-grid">
+          <div class="section-copy">
+            <h2>Lightweight correction for action-chunked VLA policies.</h2>
             <p>
-              Strict closed-loop execution with horizon 1 improves responsiveness, but it requires a full
-              VLA inference at every control step. VLA-Corrector instead makes the action horizon adaptive:
-              keep long chunks when reliable, and intervene when drift persists.
+              Action chunks reduce policy-call frequency by executing several predicted actions before the next
+              VLA query. This improves smoothness and efficiency, but it creates an open-loop blind spot: fresh
+              observations arrive while the robot continues following queued actions.
+            </p>
+            <p>
+              VLA-Corrector adds an external latent dynamics corrector trained on frozen VLA visual features.
+              It detects persistent mismatch between expected and observed visual evolution, truncates stale
+              actions, and guides the next recovery query with Online Gradient Guidance.
             </p>
           </div>
+          <div class="metric-stack">
+            <div class="metric">
+              <strong>~40M</strong>
+              <span>Residual MLP corrector, reported as approximately 38--42M parameters.</span>
+            </div>
+            <div class="metric">
+              <strong>3</strong>
+              <span>Evaluated VLA backbones in the paper: PI0.5, SmolVLA, and X-VLA.</span>
+            </div>
+            <div class="metric">
+              <strong>83.7%</strong>
+              <span>Reported truncations occurring in manually labeled critical phases.</span>
+            </div>
+          </div>
         </div>
-        <a class="figure-link" href="assets/images/open_loop_vs_corrected_execution.pdf">
-          Open the paper figure: open-loop versus closed-loop execution
-        </a>
       </section>
 
-      <section id="method" class="section method">
-        <div class="section-head">
-          <p class="eyebrow">Method</p>
-          <h2>External monitoring for a frozen VLA backbone</h2>
-        </div>
-
-        <div class="pipeline" aria-label="VLA-Corrector pipeline">
-          <div class="node">Observation + Instruction</div>
-          <div class="arrow">-></div>
-          <div class="node">Base VLA Action Chunk</div>
-          <div class="arrow">-></div>
-          <div class="node">LVM Drift Monitor</div>
-          <div class="arrow">-></div>
-          <div class="node">Truncate if Persistent Drift</div>
-          <div class="arrow">-></div>
-          <div class="node">OGG-Guided Recovery Replan</div>
-        </div>
-
-        <div class="grid four">
-          <div class="panel compact">
-            <h3>Corrector Training</h3>
-            <p>Train an external residual MLP on frozen VLA visual latents to predict short-horizon latent residuals.</p>
+      <section id="problem" class="section problem">
+        <div class="section-label">02 The Problem</div>
+        <h2>Open-loop VLA execution leaves blind spots.</h2>
+        <div class="comparison">
+          <div class="compare-card">
+            <div class="compare-kicker">Open-loop VLA</div>
+            <h3>Long chunks can become stale.</h3>
+            <ul>
+              <li>Fresh observations are available but not used until the horizon ends.</li>
+              <li>Small pose drift, slippage, or disturbance can compound during the blind spot.</li>
+              <li>A later ordinary replan may start from a harder out-of-distribution state.</li>
+            </ul>
           </div>
-          <div class="panel compact">
-            <h3>LVM Detection</h3>
-            <p>Compare expected and observed latent visual evolution from fresh camera observations.</p>
-          </div>
-          <div class="panel compact">
-            <h3>Event Trigger</h3>
-            <p>Use robust thresholds, hysteresis, and persistence checking before truncating stale actions.</p>
-          </div>
-          <div class="panel compact">
-            <h3>OGG Recovery</h3>
-            <p>Guide only the recovery query after an interrupt toward a corrective latent direction.</p>
+          <div class="compare-card accent">
+            <div class="compare-kicker">VLA + Corrector</div>
+            <h3>Correction is invoked only when needed.</h3>
+            <ul>
+              <li>LVM monitors whether local visual dynamics remain consistent.</li>
+              <li>Persistent mismatch truncates the remaining queued actions.</li>
+              <li>OGG guides the next recovery query without retraining the full VLA.</li>
+            </ul>
           </div>
         </div>
-        <a class="figure-link" href="assets/images/method_overview.pdf">Open the paper figure: method overview</a>
       </section>
 
-      <section class="section corrected">
-        <div class="section-head">
-          <p class="eyebrow">Corrected execution</p>
-          <h2>From fixed open-loop chunks to event-triggered correction</h2>
+      <section id="idea" class="section">
+        <div class="section-label">03 The Idea</div>
+        <div class="feature-panel">
+          <div>
+            <h2>Correct the action, not the whole model.</h2>
+            <p>
+              VLA-Corrector decouples action generation from execution monitoring. The base policy continues
+              to generate action chunks, while a separate corrector estimates local latent dynamics and decides
+              whether the current chunk should still be trusted.
+            </p>
+          </div>
+          <a class="figure-button" href="assets/images/open_loop_vs_corrected_execution.pdf">
+            Open paper figure
+          </a>
         </div>
-        <p>
-          VLA-Corrector does not claim to replace the base policy with a full new closed-loop controller.
-          Instead, it adds a lightweight correction pathway: standard chunked execution remains active during
-          stable phases, while LVM-triggered truncation and OGG-guided replanning intervene at recovery moments.
-        </p>
       </section>
 
-      <section id="experiments" class="section experiments">
+      <section id="method" class="section">
+        <div class="section-label">04 Method</div>
         <div class="section-head">
-          <p class="eyebrow">Experiments</p>
-          <h2>Simulation, mechanism analysis, ablations, and real-world evaluation</h2>
+          <h2>Four modules turn fixed horizons into event-triggered horizons.</h2>
+          <p>
+            The method keeps standard chunked execution in stable phases and activates correction only after
+            the monitor detects persistent drift.
+          </p>
         </div>
 
-        <div class="stats">
-          <div class="stat">
-            <strong>~40M</strong>
-            <span>MLP corrector, approximately 38--42M parameters</span>
+        <div class="method-grid">
+          <article class="method-card">
+            <span>01</span>
+            <h3>External Latent Dynamics Corrector</h3>
+            <p>Predicts short-horizon latent residuals from frozen VLA visual features and executed actions.</p>
+          </article>
+          <article class="method-card">
+            <span>02</span>
+            <h3>Latent-space Vision Monitor</h3>
+            <p>Compares expected and observed visual evolution while the action chunk is being executed.</p>
+          </article>
+          <article class="method-card">
+            <span>03</span>
+            <h3>Event-triggered Truncation</h3>
+            <p>Uses robust online thresholds, hysteresis, and persistence checks before discarding stale actions.</p>
+          </article>
+          <article class="method-card">
+            <span>04</span>
+            <h3>OGG Recovery Replan</h3>
+            <p>Applies Online Gradient Guidance only to the single policy query immediately after an interrupt.</p>
+          </article>
+        </div>
+
+        <div class="paper-figures">
+          <a href="assets/images/method_overview.pdf">Method overview</a>
+          <a href="assets/images/performance_efficiency_pareto.pdf">Performance-efficiency trade-off</a>
+        </div>
+      </section>
+
+      <section id="results" class="section results">
+        <div class="section-label">05 Results</div>
+        <div class="section-head">
+          <h2>Reported gains across simulation, ablations, and real robot evaluation.</h2>
+          <p>Numbers below are summarized from the paper LaTeX draft. See the paper for full protocols.</p>
+        </div>
+
+        <div class="result-cards">
+          <div class="result-card">
+            <span>MetaWorld · PI0.5</span>
+            <strong>48.70 → 64.35</strong>
+            <p>Average success, +15.65 points.</p>
           </div>
-          <div class="stat">
-            <strong>3</strong>
-            <span>VLA backbones: PI0.5, SmolVLA, and X-VLA</span>
+          <div class="result-card">
+            <span>LIBERO · PI0.5 few-shot</span>
+            <strong>94.00 → 97.80</strong>
+            <p>Average success with VLA-Corrector.</p>
           </div>
-          <div class="stat">
-            <strong>83.7%</strong>
-            <span>reported truncations occurring in critical phases</span>
+          <div class="result-card">
+            <span>AgileX PiPER</span>
+            <strong>55.6 → 73.3</strong>
+            <p>Average success across three real-world task groups.</p>
+          </div>
+          <div class="result-card">
+            <span>Success-per-call</span>
+            <strong>+45.3%</strong>
+            <p>Largest reported gain among the three backbones, on SmolVLA.</p>
           </div>
         </div>
 
@@ -169,7 +241,7 @@
                 <th>Setting</th>
                 <th>Baseline</th>
                 <th>+ VLA-Corrector</th>
-                <th>Reported change</th>
+                <th>Change</th>
               </tr>
             </thead>
             <tbody>
@@ -178,76 +250,66 @@
                 <td>PI0.5 average success</td>
                 <td>48.70%</td>
                 <td>64.35%</td>
-                <td>+15.65 points</td>
+                <td>+15.65</td>
               </tr>
               <tr>
                 <td>MetaWorld</td>
                 <td>SmolVLA average success</td>
                 <td>61.90%</td>
                 <td>66.65%</td>
-                <td>+4.75 points</td>
+                <td>+4.75</td>
               </tr>
               <tr>
                 <td>MetaWorld</td>
                 <td>X-VLA average success</td>
                 <td>55.55%</td>
                 <td>59.60%</td>
-                <td>+4.05 points</td>
+                <td>+4.05</td>
               </tr>
               <tr>
-                <td>LIBERO</td>
-                <td>PI0.5 few-shot average success</td>
-                <td>94.00%</td>
-                <td>97.80%</td>
-                <td>+3.80 points</td>
-              </tr>
-              <tr>
-                <td>AgileX PiPER</td>
-                <td>Average across real-world task groups</td>
-                <td>55.6%</td>
-                <td>73.3%</td>
-                <td>+17.7 points</td>
+                <td>MetaWorld ablation</td>
+                <td>Truncation only / + OGG</td>
+                <td>48.70%</td>
+                <td>60.35% / 64.35%</td>
+                <td>+11.65 / +15.65</td>
               </tr>
             </tbody>
           </table>
         </div>
-        <a class="figure-link" href="assets/images/performance_efficiency_pareto.pdf">
-          Open the paper figure: performance-efficiency trade-off
-        </a>
-      </section>
-
-      <section class="section ablation">
-        <div class="section-head">
-          <p class="eyebrow">Ablation and analysis</p>
-          <h2>Where the gains come from</h2>
-        </div>
-        <div class="grid two">
-          <div class="panel">
-            <h3>Truncation matters</h3>
-            <p>
-              On the reported MetaWorld ablation, truncation alone improves average success from 48.70%
-              to 60.35%, showing the value of stopping stale chunks.
-            </p>
-          </div>
-          <div class="panel">
-            <h3>Guided recovery helps</h3>
-            <p>
-              Adding OGG raises the reported average to 64.35%. The paper also notes that OGG adds
-              event-triggered wall-clock overhead because it uses online gradients during recovery queries.
-            </p>
-          </div>
-        </div>
       </section>
 
       <section id="usage" class="section usage">
-        <div class="section-head">
-          <p class="eyebrow">Usage</p>
-          <h2>Install, prepare your data and checkpoints, then run evaluation</h2>
-        </div>
-        <pre><code>conda env create -f environment.yml
+        <div class="section-label">06 Usage</div>
+        <div class="usage-grid">
+          <div>
+            <h2>Install, train the corrector, and evaluate with your own resources.</h2>
+            <p>
+              Datasets, pretrained weights, fine-tuned checkpoints, trained corrector checkpoints, demo data,
+              and logs are not included in this repository.
+            </p>
+          </div>
+          <div class="code-column">
+            <div class="code-card">
+              <div class="code-title">Installation</div>
+              <pre data-copy><code>conda env create -f environment.yml
 conda activate lerobot
 python -m pip install -e . --no-build-isolation</code></pre>
-        <pre><code>python -m lerobot.scripts.lerobot_eval_modified_detection \
+            </div>
+            <div class="code-card">
+              <div class="code-title">Corrector training</div>
+              <pre data-copy><code>torchrun --nproc_per_node=1 -m siglip_dynamics.train \
+  --model-type mlp \
+  --h-window 1 \
+  --k-step-list 10 \
+  --dataset-path &lt;EXTRACTED_CACHE_DIR&gt; \
+  --batch-size 512 \
+  --epochs 30 \
+  --train-loss-type cosine \
+  --checkpoint-dir &lt;CORRECTOR_CHECKPOINT&gt;</code></pre>
+            </div>
+            <div class="code-card">
+              <div class="code-title">Modified evaluation</div>
+              <pre data-copy><code>python -m lerobot.scripts.lerobot_eval_modified_detection \
   --policy.path=&lt;POLICY_CHECKPOINT&gt; \
   --policy.device=cuda \
   --env.type=metaworld \
@@ -255,43 +317,53 @@ python -m pip install -e . --no-build-isolation</code></pre>
   --eval.batch_size=1 \
   --eval.n_episodes=20 \
   --safety_model_path=&lt;CORRECTOR_CHECKPOINT&gt; \
-  --safety_k=10 \
-  --guidance_eta=1 \
   --output_dir=&lt;OUTPUT_DIR&gt;</code></pre>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <section class="section resources">
-        <div class="section-head">
-          <p class="eyebrow">Resources</p>
-          <h2>What is not included</h2>
+      <section id="resources" class="section resources">
+        <div class="section-label">07 Resources</div>
+        <div class="resource-grid">
+          <div class="resource-card">Datasets are not included.</div>
+          <div class="resource-card">Demo data are not included.</div>
+          <div class="resource-card">Pretrained weights are not included.</div>
+          <div class="resource-card">Fine-tuned checkpoints are not included.</div>
+          <div class="resource-card">Trained corrector checkpoints are not included.</div>
+          <div class="resource-card">Outputs, logs, caches, and wandb runs are ignored.</div>
         </div>
-        <ul class="resource-list">
-          <li>Datasets are not included.</li>
-          <li>Demo data and demo videos are not included.</li>
-          <li>Hugging Face pretrained weights are not included.</li>
-          <li>Fine-tuned policy checkpoints are not included.</li>
-          <li>Trained corrector checkpoints are not included.</li>
-        </ul>
       </section>
 
       <section id="citation" class="section citation">
-        <div class="section-head">
-          <p class="eyebrow">Citation</p>
-          <h2>Paper and arXiv coming soon</h2>
-        </div>
-        <pre><code>@misc{pan2026vlacorrector,
+        <div class="section-label">08 Citation</div>
+        <div class="citation-grid">
+          <div>
+            <h2>Paper and arXiv links are coming soon.</h2>
+            <p>
+              Until a public citation is available, please cite the repository. The project page is served
+              from the <code>/docs</code> directory via GitHub Pages.
+            </p>
+          </div>
+          <div class="code-card">
+            <div class="code-title">Repository citation</div>
+            <pre data-copy><code>@misc{vla_corrector_2026,
   title        = {VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon},
   author       = {Pan, Yi and Pan, Miao and Lu, Qi and Huang, Jiaming and Zhang, Man and Zhang, Wenqi},
   year         = {2026},
   howpublished = {GitHub repository},
-  url          = {https://github.com/ZJU-OmniAI/vla-corrector},
-  note         = {Paper and arXiv coming soon}
+  url          = {https://github.com/ZJU-OmniAI/vla-corrector}
 }</code></pre>
+          </div>
+        </div>
       </section>
     </main>
 
-    <footer class="footer">
-      <span>VLA-Corrector</span>
+    <footer class="site-footer">
+      <div>
+        <strong>VLA-Corrector</strong>
+        <span>ZJU-OmniAI · Zhejiang University</span>
+      </div>
       <a href="https://github.com/ZJU-OmniAI/vla-corrector">https://github.com/ZJU-OmniAI/vla-corrector</a>
     </footer>
 
