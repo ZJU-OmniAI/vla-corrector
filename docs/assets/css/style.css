@@ -236,7 +236,14 @@ h1 {
 }
 
 .teaser-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 16px;
+}
+
+.teaser-frame picture {
+  width: min(100%, 960px);
 }
 
 .method-frame {
@@ -345,7 +352,9 @@ pre {
 }
 
 .footer img {
-  width: 54px;
+  width: 58px;
+  max-height: 52px;
+  object-fit: contain;
   height: auto;
 }
 

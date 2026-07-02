@@ -18,7 +18,6 @@
 
   [![Project Page](https://img.shields.io/badge/Project_Page-1A73E8?style=for-the-badge&logo=googlechrome&logoColor=white)](https://zju-omniai.github.io/vla-corrector/)
   [![Code](https://img.shields.io/badge/Code-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ZJU-OmniAI/vla-corrector)
-  [![Paper](https://img.shields.io/badge/Paper-Coming_Soon-B31B1B?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](#citation)
   [![arXiv](https://img.shields.io/badge/arXiv-Coming_Soon-B31B1B?style=for-the-badge&logo=arxiv&logoColor=white)](#citation)
   [![BibTeX](https://img.shields.io/badge/Cite-BibTeX-4C8C4A?style=for-the-badge&logo=googlescholar&logoColor=white)](#citation)
 
@@ -33,11 +32,17 @@ VLA-Corrector keeps the VLA backbone frozen and adds an external latent dynamics
 
 ## Paper Figures
 
-- [Open-loop versus closed-loop execution](docs/assets/images/teaser_open_loop_vs_closed_loop.png)
-- [VLA-Corrector method overview](docs/assets/images/method_overview.png)
-- [Performance-efficiency trade-off](docs/assets/images/results_pareto.png)
-- [Task-phase truncation analysis](docs/assets/images/truncation_phase_analysis.png)
-- [Controlled recovery case](docs/assets/images/qualitative_recovery.png)
+<p align="center">
+  <img src="docs/assets/images/teaser_open_loop_vs_closed_loop.png" alt="Open-loop versus closed-loop execution" width="92%">
+</p>
+
+<p align="center"><b>Open-loop versus closed-loop execution.</b></p>
+
+<p align="center">
+  <img src="docs/assets/images/method_overview.png" alt="VLA-Corrector method overview" width="92%">
+</p>
+
+<p align="center"><b>VLA-Corrector method overview.</b></p>
 
 These figures are copied from the paper LaTeX source. They are not generated project-page illustrations.
 
