@@ -196,6 +196,8 @@ tests/artifacts/
 *.mov
 *.mkv
 *.webm
+!docs/assets/videos/
+!docs/assets/videos/*.mp4
 
 # cache
 .cache/

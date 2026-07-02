@@ -9,7 +9,7 @@
       content="VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon."
     />
     <link rel="icon" href="assets/branding/vla_corrector_logo.png" />
-    <link rel="stylesheet" href="assets/css/style.css?v=resource-icons-v2" />
+    <link rel="stylesheet" href="assets/css/style.css?v=real-robot-demos-v1" />
   </head>
   <body>
     <header class="topbar">
@@ -19,6 +19,7 @@
       </a>
       <nav aria-label="Page navigation">
         <a href="#abstract">Abstract</a>
+        <a href="#demos">Demos</a>
         <a href="#method">Method</a>
         <a href="#experiments">Experiments</a>
         <a href="#results">Results</a>
@@ -110,39 +111,93 @@
         </figure>
       </section>
 
-      <section id="abstract" class="content-section">
-        <h2>Abstract</h2>
-        <p>
-          Vision-Language-Action policies often execute multiple future actions as an action chunk to reduce policy-call
-          frequency and preserve temporal coherence. This open-loop execution window creates a blind spot: fresh
-          observations arrive, but the policy keeps following queued actions until the fixed horizon ends.
-        </p>
-        <p>
-          VLA-Corrector addresses this limitation with a lightweight detect-and-correct inference framework. A
-          Latent-space Vision Monitor compares predicted and observed visual feature evolution, detects persistent
-          deviations, truncates stale actions, and invokes corrective replanning with Online Gradient Guidance. The
-          result is an event-triggered adaptive action horizon that keeps long-horizon efficiency during stable phases
-          while restoring short-horizon corrective behavior when execution drifts.
-        </p>
-      </section>
-
-      <section id="motivation" class="content-section two-column">
-        <div>
-          <h2>Motivation</h2>
+      <section id="demos" class="content-section demo-section">
+        <div class="section-head-center">
+          <h2>Real-Robot Demonstrations</h2>
           <p>
-            Action chunking is a practical compromise for generative VLA policies: it amortizes inference cost, but it
-            also widens the interval during which the controller does not re-query the policy. The paper identifies this
-            interval as an open-loop blind spot where perturbations, slippage, and pose drift can compound before the
-            next replan.
+            Silent real-robot clips on AgileX PiPER tasks. Each clip shows a human perturbation during execution and
+            the policy recovering through the correction pathway.
           </p>
         </div>
-        <div>
-          <h2>Key Idea</h2>
+        <div class="video-grid" aria-label="Real-robot demonstration videos">
+          <figure class="video-card">
+            <video controls muted playsinline preload="metadata">
+              <source src="assets/videos/drawer_alignment_perturbation.mp4" type="video/mp4" />
+            </video>
+            <figcaption>
+              <strong>Drawer alignment</strong>
+              <span>Human moves the drawer while the robot aligns to the top corner.</span>
+            </figcaption>
+          </figure>
+          <figure class="video-card">
+            <video controls muted playsinline preload="metadata">
+              <source src="assets/videos/block_to_blue_bowl_perturbation.mp4" type="video/mp4" />
+            </video>
+            <figcaption>
+              <strong>Block to blue bowl</strong>
+              <span>Human moves the target bowl during execution.</span>
+            </figcaption>
+          </figure>
+          <figure class="video-card">
+            <video controls muted playsinline preload="metadata">
+              <source src="assets/videos/block_to_white_bowl_perturbation.mp4" type="video/mp4" />
+            </video>
+            <figcaption>
+              <strong>Block to white bowl</strong>
+              <span>Human perturbs the object before successful placement.</span>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="abstract" class="content-section">
+        <div class="section-head-center">
+          <h2>Abstract</h2>
           <p>
-            Instead of retraining the VLA backbone or querying it at every control step, VLA-Corrector decouples action
-            generation from execution monitoring. The frozen VLA still produces chunks; an external corrector monitors
-            latent visual dynamics and intervenes only when the current chunk should no longer be trusted.
+            VLA-Corrector turns fixed action chunks into an adaptive execution process: keep long-horizon efficiency
+            when execution is stable, and interrupt stale actions when visual dynamics drift.
           </p>
+        </div>
+        <div class="insight-grid">
+          <article class="insight-card">
+            <span>Problem</span>
+            <p>Chunked VLA policies can keep executing queued actions after perturbations.</p>
+          </article>
+          <article class="insight-card">
+            <span>Detector</span>
+            <p>A Latent-space Vision Monitor compares predicted and observed visual feature evolution.</p>
+          </article>
+          <article class="insight-card">
+            <span>Recovery</span>
+            <p>Persistent mismatch triggers truncation and OGG-guided corrective replanning.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="motivation" class="content-section">
+        <div class="section-head-center">
+          <h2>Motivation</h2>
+          <p>
+            Action chunking reduces expensive VLA calls, but it also creates a blind spot between replanning events.
+            VLA-Corrector targets that gap without retraining the full VLA.
+          </p>
+        </div>
+        <div class="idea-cards" aria-label="Key ideas">
+          <article class="idea-card">
+            <span class="idea-index">01</span>
+            <h3>Monitor latent dynamics</h3>
+            <p>Predict short-horizon visual residuals and compare them with incoming observations.</p>
+          </article>
+          <article class="idea-card">
+            <span class="idea-index">02</span>
+            <h3>Interrupt stale chunks</h3>
+            <p>Stop executing the queued chunk when mismatch persists across consecutive steps.</p>
+          </article>
+          <article class="idea-card">
+            <span class="idea-index">03</span>
+            <h3>Replan only when needed</h3>
+            <p>Use OGG-guided recovery queries instead of forcing per-step VLA replanning.</p>
+          </article>
         </div>
       </section>
 
@@ -313,8 +368,9 @@
         <h2>Code</h2>
         <p>
           The code repository contains the LeRobot-based implementation, modified VLA evaluation entry points, and the
-          latent dynamics corrector training modules. Datasets, demo data, pretrained weights, fine-tuned checkpoints,
-          trained corrector checkpoints, outputs, logs, and caches are not included.
+          latent dynamics corrector training modules. Datasets, raw demonstration data, pretrained weights, fine-tuned
+          checkpoints, trained corrector checkpoints, outputs, logs, and caches are not included. The project page only
+          includes compressed silent real-robot clips for visualization.
         </p>
         <p>
           See the <a href="https://github.com/ZJU-OmniAI/vla-corrector#readme">GitHub README</a> for installation,

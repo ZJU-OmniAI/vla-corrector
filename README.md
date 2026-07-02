@@ -95,7 +95,7 @@ The exported environment name is `lerobot`. You can edit the `name:` field in `e
 
 ## Data and Checkpoints
 
-This repository does **not** include datasets, demo data, training outputs, Hugging Face pretrained weights, fine-tuned VLA checkpoints, trained corrector checkpoints, wandb logs, or caches.
+This repository does **not** include datasets, raw demonstration data, training outputs, Hugging Face pretrained weights, fine-tuned VLA checkpoints, trained corrector checkpoints, wandb logs, or caches. The project page includes only compressed silent real-robot clips for visualization.
 
 Prepare or specify these paths yourself:
 
