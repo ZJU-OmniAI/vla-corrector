@@ -1,75 +1,70 @@
 <div align="center">
-  <img src="docs/assets/images/vla-corrector-mark.svg" width="112" alt="VLA-Corrector logo">
+  <img src="docs/assets/branding/lab_logo.jpg" alt="ZJU-OmniAI logo" width="110">
 
   # VLA-Corrector
 
-  ### A ~40M-parameter corrector for mitigating blind spots in open-loop VLA execution
+  ### VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon
+
+  <p>
+    Yi Pan, Miao Pan, Qi Lu, Jiaming Huang, Man Zhang, Wenqi Zhang<br>
+    Zhejiang University
+  </p>
 
   <p>
     <a href="https://zju-omniai.github.io/vla-corrector/">Project Page</a> ·
     <a href="https://github.com/ZJU-OmniAI/vla-corrector">Code</a> ·
     <a href="#citation">Paper: Coming soon</a> ·
-    <a href="#citation">arXiv: Coming soon</a>
-  </p>
-
-  <p>
-    <img alt="Python" src="https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white">
-    <img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-2.x-EE4C2C?logo=pytorch&logoColor=white">
-    <a href="https://zju-omniai.github.io/vla-corrector/"><img alt="Project Page" src="https://img.shields.io/badge/Project-Page-06B6D4"></a>
-    <img alt="Paper" src="https://img.shields.io/badge/Paper-Coming%20soon-64748B">
-    <img alt="arXiv" src="https://img.shields.io/badge/arXiv-Coming%20soon-64748B">
+    <a href="#citation">arXiv: Coming soon</a> ·
+    <a href="#citation">BibTeX</a>
   </p>
 </div>
 
 ---
 
-**VLA-Corrector** is a lightweight detect-and-correct inference framework for action-chunked Vision-Language-Action (VLA) policies. It keeps the VLA backbone frozen, monitors latent visual dynamics during execution, truncates stale action chunks when persistent drift appears, and guides the next recovery replan with Online Gradient Guidance (OGG).
+**VLA-Corrector** is a lightweight detect-and-correct inference framework for action-chunked Vision-Language-Action (VLA) policies. It addresses the open-loop blind spot created by fixed action horizons: fresh observations arrive during execution, but the policy continues following queued actions until the horizon ends.
 
-The paper identifies a practical failure mode in action-chunked VLA control: long horizons reduce policy-call frequency, but they also create an **open-loop blind spot** where fresh observations are ignored until the queued actions finish. VLA-Corrector turns the fixed action horizon into an event-triggered adaptive horizon, preserving efficient long chunks during stable phases and invoking correction only when execution starts to drift.
+VLA-Corrector keeps the VLA backbone frozen and adds an external latent dynamics corrector. A Latent-space Vision Monitor (LVM) detects persistent mismatch between predicted and observed visual feature evolution; the system then truncates stale actions and invokes corrective replanning via Online Gradient Guidance (OGG).
 
-## Highlights
+## Paper Figures
 
-- **Lightweight ~40M corrector.** The paper reports residual MLP correctors with approximately 38--42M parameters.
-- **Open-loop blind-spot mitigation.** LVM monitors mismatch between expected and observed latent visual dynamics while the robot executes queued actions.
-- **Plug-in correction path.** The VLA policy weights stay frozen; the trainable module is an external latent dynamics corrector.
-- **Event-triggered adaptive horizon.** Persistent drift truncates stale actions instead of blindly executing the remaining chunk.
-- **Recovery-guided re-inference.** OGG is applied only to the policy query immediately after an interrupt event.
+- [Open-loop versus closed-loop execution](docs/assets/images/teaser_open_loop_vs_closed_loop.pdf)
+- [VLA-Corrector method overview](docs/assets/images/method_overview.pdf)
+- [Performance-efficiency trade-off](docs/assets/images/results_pareto.pdf)
+- [Task-phase truncation analysis](docs/assets/images/truncation_phase_analysis.pdf)
+- [Controlled recovery case](docs/assets/images/qualitative_recovery.pdf)
 
-## Why Correct Open-loop VLA Execution?
+These figures are copied from the paper LaTeX source. They are not generated project-page illustrations.
 
-Action-chunked VLA policies predict multiple future actions in one call and execute an `H`-step horizon before querying the policy again. This amortizes expensive VLA inference and improves temporal smoothness, but it also means the robot may continue executing stale actions after slippage, collision, pose drift, or an online disturbance.
+## Abstract
 
-VLA-Corrector does **not** replace the policy with a new closed-loop controller. Instead, it adds a lightweight correction pathway on top of standard chunked execution: keep the chunk when local dynamics remain consistent, and interrupt it when persistent drift indicates that the remaining actions are no longer reliable.
+Action-chunked VLA policies reduce policy-call frequency and preserve temporal coherence by executing several future actions before querying the policy again. This design can fail in contact-rich manipulation, where small perturbations, pose drift, or slippage may compound inside the open-loop blind spot.
 
-## Method at a Glance
+VLA-Corrector mitigates this issue with an event-triggered adaptive action horizon. During stable execution it preserves the efficiency of long chunks. When latent visual dynamics indicate persistent drift, it truncates the current queue and applies OGG only to the next recovery query. The trainable component is an external lightweight corrector, not the full VLA backbone.
 
-```mermaid
-flowchart LR
-  A[Observation + Instruction] --> B[Base VLA Policy]
-  B --> C[Queued Action Chunk]
-  C --> D[Robot / Simulation]
-  D --> E[Fresh Observation]
-  E --> F[LVM Drift Monitor]
-  F -->|stable| C
-  F -->|persistent drift| G[Truncate Stale Actions]
-  G --> H[OGG-Guided Recovery Replan]
-  H --> B
-```
+## Method
 
-The detect-and-correct pipeline has four modules:
+The paper organizes VLA-Corrector into four parts:
 
-| Module | Role |
-| --- | --- |
-| **External latent dynamics corrector** | Predicts short-horizon latent residuals from frozen VLA visual features and executed actions. |
-| **Latent-space Vision Monitor (LVM)** | Compares expected and observed latent evolution during chunk execution. |
-| **Event-triggered truncation** | Discards remaining queued actions when drift persists under robust thresholding and hysteresis. |
-| **Online Gradient Guidance (OGG)** | Guides the single recovery replan after an interrupt toward a corrective latent direction. |
+1. **External latent dynamics corrector:** predicts short-horizon latent residuals from frozen VLA visual features and executed actions.
+2. **Latent-space Vision Monitor:** compares expected and observed latent visual evolution during action-chunk execution.
+3. **Event-triggered truncation:** discards remaining queued actions when persistent drift indicates that the chunk has become stale.
+4. **Online Gradient Guidance:** guides the single recovery replan immediately after an interrupt event.
 
-Paper figures:
+The paper reports residual MLP correctors with approximately **38--42M parameters**, referred to as a lightweight ~40M MLP corrector.
 
-- [Method overview](docs/assets/images/method_overview.pdf)
-- [Open-loop execution comparison](docs/assets/images/open_loop_vs_corrected_execution.pdf)
-- [Performance-efficiency trade-off](docs/assets/images/performance_efficiency_pareto.pdf)
+## Results
+
+The following values are summarized from the paper LaTeX draft. See the paper for complete protocols, task splits, and appendix tables.
+
+| Setting | Baseline | + VLA-Corrector | Reported change |
+| --- | ---: | ---: | ---: |
+| MetaWorld, PI0.5 avg. success | 48.70 | 64.35 | +15.65 |
+| MetaWorld, SmolVLA avg. success | 61.90 | 66.65 | +4.75 |
+| MetaWorld, X-VLA avg. success | 55.55 | 59.60 | +4.05 |
+| LIBERO, PI0.5 few-shot avg. success | 94.00 | 97.80 | +3.80 |
+| AgileX PiPER real-world avg. success | 55.6 | 73.3 | +17.7 |
+
+Additional analysis in the paper reports that truncation alone improves MetaWorld average success from 48.70% to 60.35%, while truncation plus OGG reaches 64.35%. The paper also reports that 83.7% of truncations occur in manually labeled critical phases.
 
 ## Installation
 
@@ -117,56 +112,7 @@ lerobot/fast-action-tokenizer
 
 Fine-tuned checkpoints are not included. Please specify your own checkpoint paths with `--policy.path` and `--safety_model_path`.
 
-## Quick Start
-
-Main modified evaluation entry point:
-
-```bash
-python -m lerobot.scripts.lerobot_eval_modified_detection --help
-```
-
-Minimal PushT smoke training from a local LeRobot-format dataset:
-
-```bash
-python -m lerobot.scripts.lerobot_train \
-  --dataset.repo_id=<LOCAL_REPO_ID> \
-  --dataset.root=<LOCAL_LEROBOT_DATASET_DIR> \
-  --policy.type=act \
-  --policy.device=cpu \
-  --policy.push_to_hub=false \
-  --policy.chunk_size=1 \
-  --policy.n_action_steps=1 \
-  --batch_size=2 \
-  --steps=1 \
-  --eval_freq=0 \
-  --save_freq=1 \
-  --num_workers=0 \
-  --output_dir=outputs/train/pusht_smoke
-```
-
-Minimal PushT smoke evaluation from a local policy checkpoint:
-
-```bash
-python -m lerobot.scripts.lerobot_eval \
-  --policy.path=outputs/train/pusht_smoke/checkpoints/000001/pretrained_model \
-  --policy.device=cpu \
-  --env.type=pusht \
-  --env.obs_type=environment_state_agent_pos \
-  --env.episode_length=1 \
-  --eval.batch_size=1 \
-  --eval.n_episodes=1 \
-  --eval.use_async_envs=false \
-  --output_dir=outputs/eval/pusht_smoke
-```
-
-## Training
-
-### Corrector / External Module Training
-
-1. Fine-tune or obtain a VLA policy checkpoint for the benchmark.
-2. Freeze the VLA and extract visual latents from demonstration trajectories.
-3. Train the external corrector to predict short-horizon latent residuals.
-4. Use the trained corrector as `--safety_model_path` during evaluation.
+## Corrector Training
 
 Latent extraction:
 
@@ -197,30 +143,13 @@ torchrun --nproc_per_node=1 -m siglip_dynamics.train \
   --checkpoint-dir <CORRECTOR_CHECKPOINT>
 ```
 
-Optional train-ratio sweep:
-
-```bash
-python -m siglip_dynamics.train_split_sweep \
-  --dataset-path <EXTRACTED_CACHE_DIR> \
-  --output-dir outputs/sweeps/siglip_dynamics \
-  --model-types mlp transformer dit \
-  --train-ratios 0.1 0.25 0.5 0.75 1.0 \
-  --k-step 10 \
-  --mlp-h-window 1 \
-  --seq-h-window 5 \
-  --epochs 30 \
-  --train-loss-type both
-```
-
-### Simulation Training
-
-The original LeRobot policy training entry point is retained:
-
-```bash
-python -m lerobot.scripts.lerobot_train --help
-```
-
 ## Evaluation
+
+Main modified evaluation entry point:
+
+```bash
+python -m lerobot.scripts.lerobot_eval_modified_detection --help
+```
 
 PI0.5-style modified evaluation:
 
@@ -257,62 +186,23 @@ python -m lerobot.scripts.lerobot_eval_modified_detection \
   --save_summary_json=true
 ```
 
-SmolVLA and X-VLA use the same entry point with backbone-specific policy arguments. For example, SmolVLA may specify:
-
-```bash
---policy.vlm_model_name=HuggingFaceTB/SmolVLM2-500M-Video-Instruct
-```
-
-X-VLA may require observation-key remapping:
-
-```bash
---rename_map='{"observation.image":"observation.images.image"}'
-```
-
-Full evaluation requires simulator dependencies, GPU resources, datasets, policy checkpoints, and trained corrector checkpoints. Missing checkpoints should produce explicit path errors rather than private-path assumptions.
-
-## Results
-
-The following values are summarized from the paper LaTeX draft. See the paper for full protocols, task splits, and appendix tables.
-
-### MetaWorld Cross-Architecture Evaluation
-
-| Backbone | Baseline Avg. Success | + VLA-Corrector Avg. Success | Absolute Gain |
-| --- | ---: | ---: | ---: |
-| PI0.5 | 48.70 | 64.35 | +15.65 |
-| SmolVLA | 61.90 | 66.65 | +4.75 |
-| X-VLA | 55.55 | 59.60 | +4.05 |
-
-### Additional Reported Findings
-
-| Setting | Paper-reported result |
-| --- | --- |
-| LIBERO PI0.5 few-shot | 94.00 -> 97.80 average success with VLA-Corrector |
-| Real AgileX PiPER | 55.6 -> 73.3 average success across three task groups |
-| Truncation ablation | 48.70 -> 60.35 with truncation only; 64.35 with truncation + OGG |
-| LVM timing analysis | 83.7% of truncations occur in manually labeled critical phases |
-| Policy-call efficiency | Largest reported success-per-call gains: 29.9% PI0.5, 45.3% SmolVLA, 39.1% X-VLA |
+SmolVLA and X-VLA use the same entry point with backbone-specific policy arguments. Full evaluation requires simulator dependencies, GPU resources, datasets, policy checkpoints, and trained corrector checkpoints.
 
 ## Repository Structure
 
 ```text
 .
 ├── src/lerobot/                 # LeRobot-based codebase and modified VLA policies
-│   ├── scripts/                 # Training, evaluation, and modified detection entry points
-│   ├── policies/pi05_modified/  # PI0.5 detect-and-correct wrapper
-│   ├── policies/smolvla_modified/
-│   ├── policies/xvla_modified/
-│   └── safety/                  # Runtime dynamics predictor loader
 ├── src/siglip_dynamics/         # Latent extraction and corrector training
-├── docs/                        # English GitHub Pages project page and technical notes
+├── docs/                        # English GitHub Pages project page
 ├── media/                       # Non-Pages media materials
-├── examples/                    # LeRobot examples retained from the base project
-├── tests/                       # Source tests; large artifacts are excluded
+├── examples/
+├── tests/
 ├── environment.yml
 └── requirements.txt
 ```
 
-## Project Page
+## GitHub Pages
 
 The project page is served from the `/docs` directory via GitHub Pages.
 
