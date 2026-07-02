@@ -10,13 +10,15 @@
     Zhejiang University
   </p>
 
-  <p>
-    <a href="https://zju-omniai.github.io/vla-corrector/">Project Page</a> ·
-    <a href="https://github.com/ZJU-OmniAI/vla-corrector">Code</a> ·
-    <a href="#citation">Paper: Coming soon</a> ·
-    <a href="#citation">arXiv: Coming soon</a> ·
-    <a href="#citation">BibTeX</a>
-  </p>
+  <br/>
+
+  [![Project Page](https://img.shields.io/badge/Project_Page-1A73E8?style=for-the-badge&logo=googlechrome&logoColor=white)](https://zju-omniai.github.io/vla-corrector/)
+  [![Code](https://img.shields.io/badge/Code-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ZJU-OmniAI/vla-corrector)
+  [![Paper](https://img.shields.io/badge/Paper-Coming_Soon-B31B1B?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](#citation)
+  [![arXiv](https://img.shields.io/badge/arXiv-Coming_Soon-B31B1B?style=for-the-badge&logo=arxiv&logoColor=white)](#citation)
+  [![BibTeX](https://img.shields.io/badge/Cite-BibTeX-4C8C4A?style=for-the-badge&logo=googlescholar&logoColor=white)](#citation)
+
+  <br/>
 </div>
 
 ---
