@@ -47,41 +47,68 @@
           <span aria-hidden="true">·</span>
           <a href="mailto:zhangwenqi@zju.edu.cn">zhangwenqi@zju.edu.cn</a>
         </p>
-        <div class="resource-row" aria-label="Project resources">
-          <a class="resource-link" href="https://github.com/ZJU-OmniAI/vla-corrector">
-            <span class="resource-tag">Code</span>
-            <span>GitHub</span>
+        <div class="hero-actions" aria-label="Project resources">
+          <a class="action-button primary" href="https://github.com/ZJU-OmniAI/vla-corrector">
+            <span class="action-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="img">
+                <path
+                  d="M12 .7a11.3 11.3 0 0 0-3.6 22c.6.1.8-.2.8-.6v-2.1c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.2-1.7-1.2-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.7 2.7 1.2 3.3.9.1-.7.4-1.2.7-1.5-2.6-.3-5.3-1.3-5.3-5.6 0-1.2.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3 0 0 .9-.3 3.1 1.2a10.6 10.6 0 0 1 5.6 0c2.1-1.5 3.1-1.2 3.1-1.2.6 1.5.2 2.7.1 3 .7.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.3-5.3 5.6.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A11.3 11.3 0 0 0 12 .7Z"
+                />
+              </svg>
+            </span>
+            <span>Code</span>
           </a>
-          <a class="resource-link" href="https://github.com/ZJU-OmniAI/vla-corrector#readme">
-            <span class="resource-tag">README</span>
-            <span>Usage</span>
+          <a class="action-button" href="https://github.com/ZJU-OmniAI/vla-corrector#readme">
+            <span class="action-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="img">
+                <path d="M6 2.8h8.2L19 7.6v13.6H6V2.8Z" />
+                <path d="M14 3v5h5" />
+                <path d="M8.8 12h6.4M8.8 15h6.4M8.8 18h4.2" />
+              </svg>
+            </span>
+            <span>README</span>
           </a>
-          <span class="resource-link is-disabled" aria-disabled="true">
-            <span class="resource-tag">arXiv</span>
-            <span>Coming soon</span>
+          <span class="action-button is-disabled" aria-disabled="true">
+            <span class="action-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="img">
+                <path d="M7 3h10v18H7V3Z" />
+                <path d="M9.5 7h5M9.5 10h5M9.5 13h3.6" />
+                <path d="m15.2 17 1.3 1.6M16.5 17l-1.3 1.6" />
+              </svg>
+            </span>
+            <span>arXiv Coming soon</span>
           </span>
-          <a class="resource-link" href="#citation">
-            <span class="resource-tag">BibTeX</span>
-            <span>Citation</span>
+          <a class="action-button" href="#citation">
+            <span class="action-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="img">
+                <path d="M8 11H5.8c.1-2.7 1.2-4.4 3.4-5.3" />
+                <path d="M9 11v6H4v-6h5Z" />
+                <path d="M18 11h-2.2c.1-2.7 1.2-4.4 3.4-5.3" />
+                <path d="M19 11v6h-5v-6h5Z" />
+              </svg>
+            </span>
+            <span>BibTeX</span>
           </a>
         </div>
       </section>
 
-      <figure class="figure-section paper-figure-frame teaser-frame" aria-labelledby="teaser-caption">
-        <picture>
-          <source srcset="assets/images/teaser_open_loop_vs_closed_loop.webp" type="image/webp" />
-          <img
-            class="paper-image"
-            src="assets/images/teaser_open_loop_vs_closed_loop.png"
-            alt="Open-loop versus closed-loop execution comparison"
-          />
-        </picture>
-        <figcaption id="teaser-caption" class="caption teaser-caption">
-          <strong>Open-loop versus closed-loop execution.</strong>
-          Under a long action horizon, a robot may continue stale actions after a deviation; strict per-step replanning
-          improves reactivity but is expensive for VLA policies.
-        </figcaption>
-      </figure>
+      <section class="teaser-section" aria-labelledby="teaser-caption">
+        <figure class="paper-figure-frame teaser-card">
+          <picture>
+            <source srcset="assets/images/teaser_open_loop_vs_closed_loop.webp" type="image/webp" />
+            <img
+              class="paper-image"
+              src="assets/images/teaser_open_loop_vs_closed_loop.png"
+              alt="Open-loop versus closed-loop execution comparison"
+            />
+          </picture>
+          <figcaption id="teaser-caption" class="caption teaser-caption">
+            <strong>Open-loop versus closed-loop execution.</strong>
+            Under a long action horizon, a robot may continue stale actions after a deviation; strict per-step replanning
+            improves reactivity but is expensive for VLA policies.
+          </figcaption>
+        </figure>
+      </section>
 
       <section id="abstract" class="content-section">
         <h2>Abstract</h2>
