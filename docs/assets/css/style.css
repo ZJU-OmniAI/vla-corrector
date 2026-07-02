@@ -140,86 +140,115 @@ h1 {
   font-size: 15px;
 }
 
-.hero-actions {
+.links {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.82rem;
-  margin-top: 1.45rem;
+  align-items: center;
+  gap: 0.78rem;
+  margin: 1.55rem auto 0;
 }
 
-.action-button {
+.btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.56rem;
-  min-height: 42px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 0.58rem 0.92rem;
+  gap: 0.62rem;
+  min-height: 46px;
+  border: 1px solid rgba(47, 95, 159, 0.16);
+  border-radius: 999px;
+  padding: 0.56rem 1.05rem 0.56rem 0.62rem;
   background: linear-gradient(180deg, #ffffff, #f8fafc);
   color: var(--text);
   font-size: 0.94rem;
   font-weight: 750;
   letter-spacing: 0;
-  box-shadow: 0 4px 14px rgba(31, 41, 51, 0.06);
+  line-height: 1;
+  box-shadow: 0 8px 22px rgba(31, 41, 51, 0.08);
   transition:
     border-color 150ms ease,
     transform 150ms ease,
+    background 150ms ease,
     box-shadow 150ms ease;
 }
 
-.action-button:hover {
-  border-color: rgba(47, 95, 159, 0.38);
-  box-shadow: 0 8px 22px rgba(47, 95, 159, 0.13);
+.btn:hover {
+  border-color: rgba(47, 95, 159, 0.42);
+  box-shadow: 0 14px 28px rgba(47, 95, 159, 0.15);
   text-decoration: none;
   transform: translateY(-1px);
 }
 
-.action-button.primary {
-  border-color: rgba(47, 95, 159, 0.48);
+.btn.primary {
+  border-color: rgba(47, 95, 159, 0.56);
   background: linear-gradient(180deg, #356aa9, #244f88);
   color: #fff;
-  box-shadow: 0 10px 24px rgba(47, 95, 159, 0.22);
+  box-shadow: 0 14px 30px rgba(47, 95, 159, 0.24);
 }
 
-.action-button.is-disabled {
+.btn.ghost {
+  background: linear-gradient(180deg, #ffffff, #fbfcfe);
+}
+
+.btn.disabled {
   cursor: default;
   color: var(--muted);
-  box-shadow: none;
+  opacity: 0.9;
 }
 
-.action-button.is-disabled:hover {
+.btn.disabled:hover {
   border-color: var(--line);
-  box-shadow: none;
+  box-shadow: 0 8px 22px rgba(31, 41, 51, 0.06);
   transform: none;
 }
 
-.action-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.24rem;
-  height: 1.24rem;
+.btn .i {
+  display: grid;
+  place-items: center;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(47, 95, 159, 0.16);
+  border-radius: 50%;
+  background: var(--blue-soft);
+  color: var(--blue);
 }
 
-.action-icon svg {
+.btn.primary .i {
+  border-color: rgba(255, 255, 255, 0.26);
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.btn.disabled .i {
+  border-color: var(--line);
+  background: #f3f5f7;
+  color: var(--muted);
+}
+
+.btn svg {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 16px;
+  height: 16px;
 }
 
-.action-icon svg path {
+.btn svg path,
+.btn svg rect {
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.75;
+  stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-.action-button.primary .action-icon svg path {
+.btn .github-mark path {
   fill: currentColor;
   stroke: none;
+}
+
+.btn .arxiv-mark text {
+  fill: currentColor;
+  font: 800 7px/1 Georgia, "Times New Roman", serif;
 }
 
 .figure-section {
@@ -524,12 +553,12 @@ pre {
     width: min(220px, 68vw);
   }
 
-  .hero-actions {
+  .links {
     display: grid;
     grid-template-columns: 1fr;
   }
 
-  .action-button {
+  .btn {
     justify-content: flex-start;
   }
 
