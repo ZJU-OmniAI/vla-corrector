@@ -30,13 +30,7 @@
 
 VLA-Corrector keeps the VLA backbone frozen and adds an external latent dynamics corrector. A Latent-space Vision Monitor (LVM) detects persistent mismatch between predicted and observed visual feature evolution; the system then truncates stale actions and invokes corrective replanning via Online Gradient Guidance (OGG).
 
-## Paper Figures
-
-<p align="center">
-  <img src="docs/assets/images/teaser_open_loop_vs_closed_loop.png" alt="Open-loop versus closed-loop execution" width="92%">
-</p>
-
-<p align="center"><b>Open-loop versus closed-loop execution.</b></p>
+## Paper Figure
 
 <p align="center">
   <img src="docs/assets/images/method_overview.png" alt="VLA-Corrector method overview" width="92%">
@@ -44,7 +38,7 @@ VLA-Corrector keeps the VLA backbone frozen and adds an external latent dynamics
 
 <p align="center"><b>VLA-Corrector method overview.</b></p>
 
-These figures are copied from the paper LaTeX source. They are not generated project-page illustrations.
+This figure is copied from the paper LaTeX source. It is not a generated project-page illustration.
 
 ## Abstract
 
@@ -115,11 +109,14 @@ Prepare or specify these paths yourself:
 
 Known model names referenced by the code include:
 
-```text
-HuggingFaceTB/SmolVLM2-500M-Video-Instruct
-google/paligemma-3b-pt-224
-lerobot/fast-action-tokenizer
-```
+| Component | Hugging Face repository referenced in source | Source location |
+| --- | --- | --- |
+| PI0.5 base policy | [`lerobot/pi05_base`](https://huggingface.co/lerobot/pi05_base) | `tests/policies/pi0_pi05/test_pi05_original_vs_lerobot.py` |
+| SmolVLA base policy | [`lerobot/smolvla_base`](https://huggingface.co/lerobot/smolvla_base) | `src/lerobot/policies/smolvla/modeling_smolvla.py` |
+| X-VLA WidowX policy | [`lerobot/xvla-widowx`](https://huggingface.co/lerobot/xvla-widowx) | `tests/policies/xvla/test_xvla_original_vs_lerobot.py` |
+| SmolVLA VLM backbone | [`HuggingFaceTB/SmolVLM2-500M-Video-Instruct`](https://huggingface.co/HuggingFaceTB/SmolVLM2-500M-Video-Instruct) | `src/lerobot/policies/smolvla/configuration_smolvla.py` |
+| PI0/PI0.5 tokenizer backbone | [`google/paligemma-3b-pt-224`](https://huggingface.co/google/paligemma-3b-pt-224) | `src/lerobot/policies/pi05/processor_pi05.py` |
+| Fast action tokenizer | [`lerobot/fast-action-tokenizer`](https://huggingface.co/lerobot/fast-action-tokenizer) | `src/lerobot/scripts/lerobot_train_tokenizer.py` |
 
 Fine-tuned checkpoints are not included. Please specify your own checkpoint paths with `--policy.path` and `--safety_model_path`.
 
@@ -172,7 +169,7 @@ export EGL_PLATFORM=surfaceless
 python -m lerobot.scripts.lerobot_eval_modified_detection \
   --policy.path=<POLICY_CHECKPOINT> \
   --policy.device=cuda \
-  --policy.n_action_steps=50 \
+  --policy.n_action_steps=10 \
   --policy.chunk_size=50 \
   --policy.compile_model=false \
   --env.type=metaworld \
@@ -205,30 +202,12 @@ SmolVLA and X-VLA use the same entry point with backbone-specific policy argumen
 .
 ├── src/lerobot/                 # LeRobot-based codebase and modified VLA policies
 ├── src/siglip_dynamics/         # Latent extraction and corrector training
-├── docs/                        # English GitHub Pages project page
+├── docs/                        # English project page
 ├── media/                       # Non-Pages media materials
 ├── examples/
 ├── tests/
 ├── environment.yml
 └── requirements.txt
-```
-
-## GitHub Pages
-
-The project page is served from the `/docs` directory via GitHub Pages.
-
-Expected URL:
-
-```text
-https://zju-omniai.github.io/vla-corrector/
-```
-
-To enable it:
-
-```text
-Settings -> Pages -> Build and deployment -> Source: Deploy from a branch
-Branch: main
-Folder: /docs
 ```
 
 ## Citation

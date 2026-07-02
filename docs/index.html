@@ -55,7 +55,7 @@
         </div>
       </section>
 
-      <figure class="figure-section paper-figure-frame teaser-frame">
+      <figure class="figure-section paper-figure-frame teaser-frame" aria-labelledby="teaser-caption">
         <picture>
           <source srcset="assets/images/teaser_open_loop_vs_closed_loop.webp" type="image/webp" />
           <img
@@ -64,7 +64,7 @@
             alt="Open-loop versus closed-loop execution comparison"
           />
         </picture>
-        <figcaption class="caption">
+        <figcaption id="teaser-caption" class="caption teaser-caption">
           <strong>Open-loop versus closed-loop execution.</strong>
           Under a long action horizon, a robot may continue stale actions after a deviation; strict per-step replanning
           improves reactivity but is expensive for VLA policies.
