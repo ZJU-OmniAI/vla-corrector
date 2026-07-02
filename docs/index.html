@@ -8,13 +8,13 @@
       name="description"
       content="VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon."
     />
-    <link rel="icon" href="assets/branding/lab_logo.jpg" />
+    <link rel="icon" href="assets/branding/vla_corrector_logo.png" />
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
     <header class="topbar">
       <a class="topbar-brand" href="#top">
-        <img src="assets/branding/lab_logo.webp" alt="ZJU-OmniAI logo" />
+        <img src="assets/branding/vla_corrector_logo.webp" alt="VLA-Corrector logo" />
         <span>VLA-Corrector</span>
       </a>
       <nav aria-label="Page navigation">
@@ -29,17 +29,24 @@
 
     <main id="top">
       <section class="hero">
-        <img class="lab-logo" src="assets/branding/lab_logo.webp" alt="ZJU-OmniAI logo" />
-        <p class="project-name">VLA-Corrector</p>
+        <img class="hero-logo" src="assets/branding/vla_corrector_logo.webp" alt="VLA-Corrector logo" />
         <h1>VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon</h1>
         <p class="tagline">
           A lightweight inference-time corrector for mitigating open-loop blind spots in action-chunked VLA policies.
         </p>
         <p class="authors">
           Yi Pan<sup>1</sup>, Miao Pan<sup>1</sup>, Qi Lu<sup>1</sup>, Jiaming Huang<sup>1</sup>,
-          Man Zhang<sup>1</sup>, Wenqi Zhang<sup>1</sup>
+          Man Zhang<sup>1</sup>, Siteng Huang<sup>2</sup>, Xin Li<sup>2</sup>, Jie Zhang<sup>1</sup>,
+          Yongliang Shen<sup>1</sup>, Xuhong Zhang<sup>1</sup>, Wenqi Zhang<sup>1</sup>
         </p>
-        <p class="affiliation"><sup>1</sup>Zhejiang University</p>
+        <p class="affiliation">
+          <sup>1</sup>Zhejiang University &nbsp;&nbsp;·&nbsp;&nbsp; <sup>2</sup>Alibaba DAMO Academy
+        </p>
+        <p class="emails">
+          <a href="mailto:panyi0304@gmail.com">panyi0304@gmail.com</a>
+          <span aria-hidden="true">·</span>
+          <a href="mailto:zhangwenqi@zju.edu.cn">zhangwenqi@zju.edu.cn</a>
+        </p>
         <div class="link-row" aria-label="Project resources">
           <a href="https://github.com/ZJU-OmniAI/vla-corrector">Code</a>
           <a href="https://github.com/ZJU-OmniAI/vla-corrector#readme">README</a>
@@ -49,21 +56,21 @@
         </div>
       </section>
 
-      <section class="figure-section">
-        <object
-          class="paper-figure teaser"
-          data="assets/images/teaser_open_loop_vs_closed_loop.pdf"
-          type="application/pdf"
-          aria-label="Open-loop versus closed-loop execution figure"
-        >
-          <a href="assets/images/teaser_open_loop_vs_closed_loop.pdf">Open teaser figure</a>
-        </object>
-        <p class="caption">
+      <figure class="figure-section paper-figure-frame teaser-frame">
+        <picture>
+          <source srcset="assets/images/teaser_open_loop_vs_closed_loop.webp" type="image/webp" />
+          <img
+            class="paper-image"
+            src="assets/images/teaser_open_loop_vs_closed_loop.png"
+            alt="Open-loop versus closed-loop execution comparison"
+          />
+        </picture>
+        <figcaption class="caption">
           <strong>Open-loop versus closed-loop execution.</strong>
           Under a long action horizon, a robot may continue stale actions after a deviation; strict per-step replanning
           improves reactivity but is expensive for VLA policies.
-        </p>
-      </section>
+        </figcaption>
+      </figure>
 
       <section id="abstract" class="content-section">
         <h2>Abstract</h2>
@@ -102,55 +109,73 @@
       </section>
 
       <section id="method" class="content-section">
-        <h2>Method Overview</h2>
-        <object
-          class="paper-figure"
-          data="assets/images/method_overview.pdf"
-          type="application/pdf"
-          aria-label="VLA-Corrector method overview figure"
-        >
-          <a href="assets/images/method_overview.pdf">Open method overview figure</a>
-        </object>
-        <p class="caption">
+        <div class="section-intro">
+          <h2>Method Overview</h2>
+          <p>
+            VLA-Corrector keeps the action-chunked VLA interface intact and adds a lightweight monitoring-and-recovery
+            path at inference time.
+          </p>
+        </div>
+        <figure class="paper-figure-frame method-frame">
+          <picture>
+            <source srcset="assets/images/method_overview.webp" type="image/webp" />
+            <img
+              class="paper-image"
+              src="assets/images/method_overview.png"
+              alt="VLA-Corrector method overview"
+              loading="lazy"
+            />
+          </picture>
+          <figcaption class="caption">
           <strong>Overview of VLA-Corrector.</strong>
           Starting from a standard chunked VLA pipeline, the framework adds LVM detection, interrupt-triggered
           truncation, and OGG-guided corrective replanning.
-        </p>
-        <p>
-          The external corrector is trained after a VLA policy has been obtained. The VLA backbone is frozen, and its
-          visual encoder extracts latent representations from demonstration trajectories. The corrector predicts
-          short-horizon latent residuals induced by executed actions, using a loss that combines residual magnitude
-          matching with directional consistency.
-        </p>
-        <p>
-          During deployment, LVM compares the expected latent residual predicted by the corrector with the actual
-          residual observed from fresh camera input. Persistent inconsistency triggers an interrupt event. The remaining
-          actions in the current queue are discarded, and the next policy query receives OGG guidance toward a recovery
-          direction. Subsequent calls return to standard inference unless another interrupt is detected.
-        </p>
+          </figcaption>
+        </figure>
+        <div class="note-grid">
+          <p>
+            The external corrector is trained after a VLA policy has been obtained. The VLA backbone is frozen, and its
+            visual encoder extracts latent representations from demonstration trajectories. The corrector predicts
+            short-horizon latent residuals induced by executed actions.
+          </p>
+          <p>
+            During deployment, LVM compares predicted and observed latent residuals. Persistent inconsistency triggers
+            an interrupt event, discards the stale action queue, and applies OGG to the next recovery query.
+          </p>
+        </div>
       </section>
 
       <section id="experiments" class="content-section">
-        <h2>Experiments</h2>
-        <p>
-          The paper evaluates VLA-Corrector on MetaWorld, LIBERO, and a real AgileX PiPER 6-DoF robot. PI0.5 is used as
-          the main backbone, with SmolVLA and X-VLA included for cross-architecture evaluation. Reported metrics include
-          task success rate, policy calls, success-per-call efficiency, post-interrupt recovery rate, and inference-time
-          overhead.
-        </p>
-        <object
-          class="paper-figure compact"
-          data="assets/images/results_pareto.pdf"
-          type="application/pdf"
-          aria-label="Performance efficiency trade-off figure"
-        >
-          <a href="assets/images/results_pareto.pdf">Open performance-efficiency figure</a>
-        </object>
-        <p class="caption">
-          <strong>Performance-efficiency trade-off across fixed action horizons.</strong>
-          Smaller horizons improve responsiveness, while larger horizons preserve chunking efficiency but widen the
-          open-loop blind spot.
-        </p>
+        <div class="split-layout">
+          <div class="split-copy">
+            <h2>Experiments</h2>
+            <p>
+              The paper evaluates VLA-Corrector on MetaWorld, LIBERO, and a real AgileX PiPER 6-DoF robot. PI0.5 is used
+              as the main backbone, with SmolVLA and X-VLA included for cross-architecture evaluation.
+            </p>
+            <ul class="compact-list">
+              <li><strong>Benchmarks:</strong> MetaWorld, LIBERO, and AgileX PiPER real-world tasks.</li>
+              <li><strong>Backbones:</strong> PI0.5, SmolVLA, and X-VLA.</li>
+              <li><strong>Metrics:</strong> task success, policy calls, recovery rate, and inference overhead.</li>
+            </ul>
+          </div>
+          <figure class="paper-figure-frame side-frame">
+            <picture>
+              <source srcset="assets/images/results_pareto.webp" type="image/webp" />
+              <img
+                class="paper-image"
+                src="assets/images/results_pareto.png"
+                alt="Performance efficiency trade-off across fixed action horizons"
+                loading="lazy"
+              />
+            </picture>
+            <figcaption class="caption">
+              <strong>Performance-efficiency trade-off.</strong>
+              Smaller horizons improve responsiveness, while larger horizons preserve chunking efficiency but widen the
+              open-loop blind spot.
+            </figcaption>
+          </figure>
+        </div>
       </section>
 
       <section id="results" class="content-section">
@@ -207,35 +232,42 @@
       </section>
 
       <section id="analysis" class="content-section">
-        <h2>Analysis</h2>
+        <div class="section-intro">
+          <h2>Analysis</h2>
+          <p>
+            The paper further studies when interrupts occur and how the correction pathway recovers from stale chunks.
+          </p>
+        </div>
         <div class="figure-grid">
-          <div>
-            <object
-              class="paper-figure analysis-figure"
-              data="assets/images/truncation_phase_analysis.pdf"
-              type="application/pdf"
-              aria-label="Task-phase analysis figure"
-            >
-              <a href="assets/images/truncation_phase_analysis.pdf">Open task-phase analysis figure</a>
-            </object>
-            <p class="caption">
+          <figure class="paper-figure-frame">
+            <picture>
+              <source srcset="assets/images/truncation_phase_analysis.webp" type="image/webp" />
+              <img
+                class="paper-image"
+                src="assets/images/truncation_phase_analysis.png"
+                alt="Task-phase analysis of LVM-triggered truncation"
+                loading="lazy"
+              />
+            </picture>
+            <figcaption class="caption">
               LVM-triggered truncations concentrate in critical phases such as precise grasping and alignment.
-            </p>
-          </div>
-          <div>
-            <object
-              class="paper-figure analysis-figure"
-              data="assets/images/qualitative_recovery.pdf"
-              type="application/pdf"
-              aria-label="Controlled recovery case figure"
-            >
-              <a href="assets/images/qualitative_recovery.pdf">Open qualitative recovery figure</a>
-            </object>
-            <p class="caption">
+            </figcaption>
+          </figure>
+          <figure class="paper-figure-frame">
+            <picture>
+              <source srcset="assets/images/qualitative_recovery.webp" type="image/webp" />
+              <img
+                class="paper-image"
+                src="assets/images/qualitative_recovery.png"
+                alt="Controlled recovery case"
+                loading="lazy"
+              />
+            </picture>
+            <figcaption class="caption">
               In a controlled recovery case, VLA-Corrector truncates stale actions, replans with OGG, and completes the
               task where the monitored baseline continues the original chunk and fails.
-            </p>
-          </div>
+            </figcaption>
+          </figure>
         </div>
       </section>
 
@@ -257,7 +289,7 @@
         <p>Paper and arXiv links are coming soon. Until a public citation is available, please cite the repository.</p>
         <pre id="bibtex"><code>@misc{vla_corrector_2026,
   title        = {VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon},
-  author       = {Pan, Yi and Pan, Miao and Lu, Qi and Huang, Jiaming and Zhang, Man and Zhang, Wenqi},
+  author       = {Pan, Yi and Pan, Miao and Lu, Qi and Huang, Jiaming and Zhang, Man and Huang, Siteng and Li, Xin and Zhang, Jie and Shen, Yongliang and Zhang, Xuhong and Zhang, Wenqi},
   year         = {2026},
   howpublished = {GitHub repository},
   url          = {https://github.com/ZJU-OmniAI/vla-corrector}
@@ -267,10 +299,10 @@
     </main>
 
     <footer class="footer">
-      <img src="assets/branding/lab_logo.webp" alt="ZJU-OmniAI logo" />
+      <img src="assets/branding/vla_corrector_logo.webp" alt="VLA-Corrector logo" />
       <div>
         <strong>VLA-Corrector</strong>
-        <span>Zhejiang University · ZJU-OmniAI</span>
+        <span>Zhejiang University · Alibaba DAMO Academy · ZJU-OmniAI</span>
       </div>
       <a href="https://github.com/ZJU-OmniAI/vla-corrector">GitHub</a>
     </footer>

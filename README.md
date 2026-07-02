@@ -1,13 +1,17 @@
 <div align="center">
-  <img src="docs/assets/branding/lab_logo.jpg" alt="ZJU-OmniAI logo" width="110">
+  <img src="docs/assets/branding/vla_corrector_logo.png" alt="VLA-Corrector logo" width="240">
 
   # VLA-Corrector
 
   ### VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon
 
   <p>
-    Yi Pan, Miao Pan, Qi Lu, Jiaming Huang, Man Zhang, Wenqi Zhang<br>
-    Zhejiang University
+    Yi Pan<sup>1</sup>, Miao Pan<sup>1</sup>, Qi Lu<sup>1</sup>, Jiaming Huang<sup>1</sup>,
+    Man Zhang<sup>1</sup>, Siteng Huang<sup>2</sup>, Xin Li<sup>2</sup>, Jie Zhang<sup>1</sup>,
+    Yongliang Shen<sup>1</sup>, Xuhong Zhang<sup>1</sup>, Wenqi Zhang<sup>1</sup><br>
+    <sup>1</sup>Zhejiang University &nbsp;&nbsp;·&nbsp;&nbsp; <sup>2</sup>Alibaba DAMO Academy<br>
+    <a href="mailto:panyi0304@gmail.com">panyi0304@gmail.com</a> &nbsp;&nbsp;·&nbsp;&nbsp;
+    <a href="mailto:zhangwenqi@zju.edu.cn">zhangwenqi@zju.edu.cn</a>
   </p>
 
   <br/>
@@ -29,11 +33,11 @@ VLA-Corrector keeps the VLA backbone frozen and adds an external latent dynamics
 
 ## Paper Figures
 
-- [Open-loop versus closed-loop execution](docs/assets/images/teaser_open_loop_vs_closed_loop.pdf)
-- [VLA-Corrector method overview](docs/assets/images/method_overview.pdf)
-- [Performance-efficiency trade-off](docs/assets/images/results_pareto.pdf)
-- [Task-phase truncation analysis](docs/assets/images/truncation_phase_analysis.pdf)
-- [Controlled recovery case](docs/assets/images/qualitative_recovery.pdf)
+- [Open-loop versus closed-loop execution](docs/assets/images/teaser_open_loop_vs_closed_loop.png)
+- [VLA-Corrector method overview](docs/assets/images/method_overview.png)
+- [Performance-efficiency trade-off](docs/assets/images/results_pareto.png)
+- [Task-phase truncation analysis](docs/assets/images/truncation_phase_analysis.png)
+- [Controlled recovery case](docs/assets/images/qualitative_recovery.png)
 
 These figures are copied from the paper LaTeX source. They are not generated project-page illustrations.
 
@@ -229,7 +233,7 @@ Paper and arXiv links are coming soon. Until a public citation is available, ple
 ```bibtex
 @misc{vla_corrector_2026,
   title        = {VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon},
-  author       = {Pan, Yi and Pan, Miao and Lu, Qi and Huang, Jiaming and Zhang, Man and Zhang, Wenqi},
+  author       = {Pan, Yi and Pan, Miao and Lu, Qi and Huang, Jiaming and Zhang, Man and Huang, Siteng and Li, Xin and Zhang, Jie and Shen, Yongliang and Zhang, Xuhong and Zhang, Wenqi},
   year         = {2026},
   howpublished = {GitHub repository},
   url          = {https://github.com/ZJU-OmniAI/vla-corrector}
