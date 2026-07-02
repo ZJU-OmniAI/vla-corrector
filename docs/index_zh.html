@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>VLA-Corrector</title>
+    <title>VLA-Corrector 中文主页</title>
     <meta
       name="description"
-      content="VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon."
+      content="VLA-Corrector：面向自适应动作 horizon 的轻量级检测与纠错推理框架。"
     />
     <link rel="icon" href="assets/branding/vla_corrector_logo.png" />
     <link rel="stylesheet" href="assets/css/style.css?v=bilingual-v1" />
@@ -17,18 +17,18 @@
         <img src="assets/branding/vla_corrector_logo.webp" alt="VLA-Corrector logo" />
         <span>VLA-Corrector</span>
       </a>
-      <nav aria-label="Page navigation">
-        <a href="#abstract">Abstract</a>
-        <a href="#demos">Demos</a>
-        <a href="#method">Method</a>
-        <a href="#experiments">Experiments</a>
-        <a href="#results">Results</a>
-        <a href="#citation">Citation</a>
-        <a href="https://github.com/ZJU-OmniAI/vla-corrector">Code</a>
+      <nav aria-label="页面导航">
+        <a href="#abstract">摘要</a>
+        <a href="#demos">真机展示</a>
+        <a href="#method">方法</a>
+        <a href="#experiments">实验</a>
+        <a href="#results">结果</a>
+        <a href="#citation">引用</a>
+        <a href="https://github.com/ZJU-OmniAI/vla-corrector">代码</a>
       </nav>
-      <div class="language-switch" aria-label="Language switch">
-        <a class="active" href="index.html" aria-current="page">EN</a>
-        <a href="index_zh.html">中文</a>
+      <div class="language-switch" aria-label="语言切换">
+        <a href="index.html">EN</a>
+        <a class="active" href="index_zh.html" aria-current="page">中文</a>
       </div>
     </header>
 
@@ -37,7 +37,7 @@
         <img class="hero-logo" src="assets/branding/vla_corrector_logo.webp" alt="VLA-Corrector logo" />
         <h1>VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon</h1>
         <p class="tagline">
-          A lightweight inference-time corrector for mitigating open-loop blind spots in action-chunked VLA policies.
+          一个推理时轻量纠错框架，用于缓解 action-chunked VLA 策略中的开环执行盲区。
         </p>
         <p class="authors">
           Yi Pan<sup>1</sup>, Miao Pan<sup>1</sup>, Qi Lu<sup>1</sup>, Jiaming Huang<sup>1</sup>,
@@ -52,7 +52,7 @@
           <span aria-hidden="true">·</span>
           <a href="mailto:zhangwenqi@zju.edu.cn">zhangwenqi@zju.edu.cn</a>
         </p>
-        <div class="links" aria-label="Project resources">
+        <div class="links" aria-label="项目资源">
           <a class="btn primary" href="https://github.com/ZJU-OmniAI/vla-corrector">
             <span class="i" aria-hidden="true">
               <svg class="github-mark" viewBox="0 0 24 24" role="img">
@@ -61,9 +61,9 @@
                 />
               </svg>
             </span>
-            <span>Code</span>
+            <span>代码</span>
           </a>
-          <a class="btn ghost" href="https://github.com/ZJU-OmniAI/vla-corrector#readme">
+          <a class="btn ghost" href="https://github.com/ZJU-OmniAI/vla-corrector/blob/main/README_zh.md">
             <span class="i" aria-hidden="true">
               <svg viewBox="0 0 24 24" role="img">
                 <path d="M6 2.8h8.2L19 7.6v13.6H6V2.8Z" />
@@ -81,7 +81,7 @@
                 <text x="12" y="14.3" text-anchor="middle">aX</text>
               </svg>
             </span>
-            <span>arXiv Coming soon</span>
+            <span>arXiv 即将发布</span>
           </span>
           <a class="btn ghost" href="#citation">
             <span class="i" aria-hidden="true">
@@ -108,29 +108,28 @@
             />
           </picture>
           <figcaption id="teaser-caption" class="caption teaser-caption">
-            <strong>Open-loop versus closed-loop execution.</strong>
-            Under a long action horizon, a robot may continue stale actions after a deviation; strict per-step replanning
-            improves reactivity but is expensive for VLA policies.
+            <strong>开环与闭环执行对比。</strong>
+            在较长动作 horizon 下，机器人可能在偏离后继续执行 stale actions；逐步重规划虽然响应更快，
+            但对 VLA 策略来说推理代价较高。
           </figcaption>
         </figure>
       </section>
 
       <section id="demos" class="content-section demo-section">
         <div class="section-head-center">
-          <h2>Real-Robot Demonstrations</h2>
+          <h2>真机展示</h2>
           <p>
-            Silent real-robot clips on AgileX PiPER tasks. Each clip shows a human perturbation during execution and
-            the policy recovering through the correction pathway.
+            三段 AgileX PiPER 真机无声展示视频。每段视频都包含执行过程中的人为扰动，以及策略通过纠错路径恢复执行。
           </p>
         </div>
-        <div class="video-grid" aria-label="Real-robot demonstration videos">
+        <div class="video-grid" aria-label="真机展示视频">
           <figure class="video-card">
             <video controls muted playsinline preload="metadata">
               <source src="assets/videos/drawer_alignment_perturbation.mp4" type="video/mp4" />
             </video>
             <figcaption>
-              <strong>Drawer alignment</strong>
-              <span>Human moves the drawer while the robot aligns to the top corner.</span>
+              <strong>抽屉角点对齐</strong>
+              <span>人在执行中移动抽屉，机器人继续对齐到抽屉顶部角落。</span>
             </figcaption>
           </figure>
           <figure class="video-card">
@@ -138,8 +137,8 @@
               <source src="assets/videos/block_to_blue_bowl_perturbation.mp4" type="video/mp4" />
             </video>
             <figcaption>
-              <strong>Block to blue bowl</strong>
-              <span>Human moves the target bowl during execution.</span>
+              <strong>方块放入蓝碗</strong>
+              <span>人在执行过程中移动目标碗，机器人进行纠错式恢复。</span>
             </figcaption>
           </figure>
           <figure class="video-card">
@@ -147,8 +146,8 @@
               <source src="assets/videos/block_to_white_bowl_perturbation.mp4" type="video/mp4" />
             </video>
             <figcaption>
-              <strong>Block to white bowl</strong>
-              <span>Human perturbs the object before successful placement.</span>
+              <strong>方块放入白碗</strong>
+              <span>人在执行中扰动物体，机器人恢复并完成放置。</span>
             </figcaption>
           </figure>
         </div>
@@ -156,61 +155,60 @@
 
       <section id="abstract" class="content-section">
         <div class="section-head-center">
-          <h2>Abstract</h2>
+          <h2>摘要</h2>
           <p>
-            VLA-Corrector turns fixed action chunks into an adaptive execution process: keep long-horizon efficiency
-            when execution is stable, and interrupt stale actions when visual dynamics drift.
+            VLA-Corrector 将固定 action chunk 执行改造成自适应执行过程：稳定时保持长 horizon 的效率，
+            当视觉动态出现漂移时中断 stale actions 并触发纠错。
           </p>
         </div>
         <div class="insight-grid">
           <article class="insight-card">
-            <span>Problem</span>
-            <p>Chunked VLA policies can keep executing queued actions after perturbations.</p>
+            <span>问题</span>
+            <p>Chunked VLA 策略在扰动后可能继续执行队列中的旧动作。</p>
           </article>
           <article class="insight-card">
-            <span>Detector</span>
-            <p>A Latent-space Vision Monitor compares predicted and observed visual feature evolution.</p>
+            <span>检测</span>
+            <p>Latent-space Vision Monitor 比较预测与实际视觉特征演化。</p>
           </article>
           <article class="insight-card">
-            <span>Recovery</span>
-            <p>Persistent mismatch triggers truncation and OGG-guided corrective replanning.</p>
+            <span>恢复</span>
+            <p>持续 mismatch 触发动作截断，并进行 OGG-guided corrective replanning。</p>
           </article>
         </div>
       </section>
 
       <section id="motivation" class="content-section">
         <div class="section-head-center">
-          <h2>Motivation</h2>
+          <h2>动机</h2>
           <p>
-            Action chunking reduces expensive VLA calls, but it also creates a blind spot between replanning events.
-            VLA-Corrector targets that gap without retraining the full VLA.
+            Action chunking 能减少昂贵的 VLA 调用，但也会在两次 replanning 之间留下盲区。
+            VLA-Corrector 在不重训完整 VLA 的前提下补上这段执行盲区。
           </p>
         </div>
-        <div class="idea-cards" aria-label="Key ideas">
+        <div class="idea-cards" aria-label="核心思想">
           <article class="idea-card">
             <span class="idea-index">01</span>
-            <h3>Monitor latent dynamics</h3>
-            <p>Predict short-horizon visual residuals and compare them with incoming observations.</p>
+            <h3>监测 latent dynamics</h3>
+            <p>预测短期视觉 residual，并与新的观测进行比较。</p>
           </article>
           <article class="idea-card">
             <span class="idea-index">02</span>
-            <h3>Interrupt stale chunks</h3>
-            <p>Stop executing the queued chunk when mismatch persists across consecutive steps.</p>
+            <h3>中断 stale chunks</h3>
+            <p>当 mismatch 持续存在时，停止执行当前动作队列。</p>
           </article>
           <article class="idea-card">
             <span class="idea-index">03</span>
-            <h3>Replan only when needed</h3>
-            <p>Use OGG-guided recovery queries instead of forcing per-step VLA replanning.</p>
+            <h3>只在必要时重规划</h3>
+            <p>用 OGG-guided recovery query 替代昂贵的逐步 VLA replanning。</p>
           </article>
         </div>
       </section>
 
       <section id="method" class="content-section">
         <div class="section-intro">
-          <h2>Method Overview</h2>
+          <h2>方法总览</h2>
           <p>
-            VLA-Corrector keeps the action-chunked VLA interface intact and adds a lightweight monitoring-and-recovery
-            path at inference time.
+            VLA-Corrector 保持 action-chunked VLA 接口不变，在推理时加入轻量 monitoring-and-recovery 路径。
           </p>
         </div>
         <figure class="paper-figure-frame method-frame">
@@ -224,20 +222,19 @@
             />
           </picture>
           <figcaption class="caption">
-          <strong>Overview of VLA-Corrector.</strong>
-          Starting from a standard chunked VLA pipeline, the framework adds LVM detection, interrupt-triggered
-          truncation, and OGG-guided corrective replanning.
+            <strong>VLA-Corrector 总览。</strong>
+            在标准 chunked VLA pipeline 上，框架加入 LVM 检测、interrupt-triggered truncation 和
+            OGG-guided corrective replanning。
           </figcaption>
         </figure>
         <div class="note-grid">
           <p>
-            The external corrector is trained after a VLA policy has been obtained. The VLA backbone is frozen, and its
-            visual encoder extracts latent representations from demonstration trajectories. The corrector predicts
-            short-horizon latent residuals induced by executed actions.
+            外部 corrector 在获得 VLA policy 后训练。VLA backbone 保持冻结，其视觉编码器从 demonstration trajectories
+            中提取 latent representation；corrector 预测由已执行动作诱导的短期 latent residual。
           </p>
           <p>
-            During deployment, LVM compares predicted and observed latent residuals. Persistent inconsistency triggers
-            an interrupt event, discards the stale action queue, and applies OGG to the next recovery query.
+            部署时，LVM 比较预测和实际 latent residual。持续不一致会触发 interrupt event，丢弃 stale action queue，
+            并在下一次 recovery query 上应用 OGG。
           </p>
         </div>
       </section>
@@ -245,15 +242,15 @@
       <section id="experiments" class="content-section">
         <div class="split-layout">
           <div class="split-copy">
-            <h2>Experiments</h2>
+            <h2>实验设置</h2>
             <p>
-              The paper evaluates VLA-Corrector on MetaWorld, LIBERO, and a real AgileX PiPER 6-DoF robot. PI0.5 is used
-              as the main backbone, with SmolVLA and X-VLA included for cross-architecture evaluation.
+              论文在 MetaWorld、LIBERO 和真实 AgileX PiPER 6-DoF 机器人上评估 VLA-Corrector。PI0.5 是主要 backbone，
+              同时包含 SmolVLA 和 X-VLA 的跨架构评测。
             </p>
             <ul class="compact-list">
-              <li><strong>Benchmarks:</strong> MetaWorld, LIBERO, and AgileX PiPER real-world tasks.</li>
-              <li><strong>Backbones:</strong> PI0.5, SmolVLA, and X-VLA.</li>
-              <li><strong>Metrics:</strong> task success, policy calls, recovery rate, and inference overhead.</li>
+              <li><strong>Benchmarks:</strong> MetaWorld、LIBERO、AgileX PiPER 真机任务。</li>
+              <li><strong>Backbones:</strong> PI0.5、SmolVLA、X-VLA。</li>
+              <li><strong>Metrics:</strong> task success、policy calls、recovery rate、inference overhead。</li>
             </ul>
           </div>
           <figure class="paper-figure-frame side-frame">
@@ -267,24 +264,23 @@
               />
             </picture>
             <figcaption class="caption">
-              <strong>Performance-efficiency trade-off.</strong>
-              Smaller horizons improve responsiveness, while larger horizons preserve chunking efficiency but widen the
-              open-loop blind spot.
+              <strong>性能与效率权衡。</strong>
+              较小 horizon 提高响应性，较大 horizon 保留 chunking 效率，但也会扩大开环执行盲区。
             </figcaption>
           </figure>
         </div>
       </section>
 
       <section id="results" class="content-section">
-        <h2>Main Results</h2>
+        <h2>主要结果</h2>
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
-                <th>Setting</th>
+                <th>设置</th>
                 <th>Baseline</th>
                 <th>+ VLA-Corrector</th>
-                <th>Reported change</th>
+                <th>提升</th>
               </tr>
             </thead>
             <tbody>
@@ -322,17 +318,16 @@
           </table>
         </div>
         <p>
-          In the reported MetaWorld component ablation, truncation alone improves average success from 48.70% to 60.35%,
-          and truncation plus OGG reaches 64.35%. The paper also reports that 83.7% of truncations occur in manually
-          labeled critical phases.
+          在 MetaWorld 组件消融中，truncation alone 将平均成功率从 48.70% 提升到 60.35%，
+          truncation plus OGG 达到 64.35%。论文还报告 83.7% 的 truncations 发生在人工标注的关键阶段。
         </p>
       </section>
 
       <section id="analysis" class="content-section">
         <div class="section-intro">
-          <h2>Analysis</h2>
+          <h2>分析</h2>
           <p>
-            The paper further studies when interrupts occur and how the correction pathway recovers from stale chunks.
+            论文进一步分析 interrupt 的发生时机，以及纠错路径如何从 stale chunks 中恢复。
           </p>
         </div>
         <div class="figure-grid">
@@ -347,7 +342,7 @@
               />
             </picture>
             <figcaption class="caption">
-              LVM-triggered truncations concentrate in critical phases such as precise grasping and alignment.
+              LVM-triggered truncations 主要集中在精确抓取、对齐等关键阶段。
             </figcaption>
           </figure>
           <figure class="paper-figure-frame">
@@ -361,30 +356,28 @@
               />
             </picture>
             <figcaption class="caption">
-              In a controlled recovery case, VLA-Corrector truncates stale actions, replans with OGG, and completes the
-              task where the monitored baseline continues the original chunk and fails.
+              在 controlled recovery case 中，VLA-Corrector 截断 stale actions，使用 OGG 重新规划，并完成 baseline
+              因继续执行原 chunk 而失败的任务。
             </figcaption>
           </figure>
         </div>
       </section>
 
       <section id="code" class="content-section">
-        <h2>Code</h2>
+        <h2>代码</h2>
         <p>
-          The code repository contains the LeRobot-based implementation, modified VLA evaluation entry points, and the
-          latent dynamics corrector training modules. Datasets, raw demonstration data, pretrained weights, fine-tuned
-          checkpoints, trained corrector checkpoints, outputs, logs, and caches are not included. The project page only
-          includes compressed silent real-robot clips for visualization.
+          仓库包含基于 LeRobot 的实现、修改后的 VLA evaluation entry points，以及 latent dynamics corrector 训练模块。
+          数据集、原始 demonstration data、预训练权重、微调 checkpoint、训练后的 corrector checkpoint、输出、日志和缓存不包含在仓库中。
+          项目主页仅包含压缩后的无声真机展示视频。
         </p>
         <p>
-          See the <a href="https://github.com/ZJU-OmniAI/vla-corrector#readme">GitHub README</a> for installation,
-          training, and evaluation commands.
+          安装、训练和评测命令见 <a href="https://github.com/ZJU-OmniAI/vla-corrector/blob/main/README_zh.md">GitHub 中文 README</a>。
         </p>
       </section>
 
       <section id="citation" class="content-section">
-        <h2>Citation</h2>
-        <p>Paper and arXiv links are coming soon. Until a public citation is available, please cite the repository.</p>
+        <h2>引用</h2>
+        <p>论文和 arXiv 链接即将发布。在公开引用信息可用前，请暂时引用仓库。</p>
         <pre id="bibtex"><code>@misc{vla_corrector_2026,
   title        = {VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon},
   author       = {Pan, Yi and Pan, Miao and Lu, Qi and Huang, Jiaming and Zhang, Man and Huang, Siteng and Li, Xin and Zhang, Jie and Shen, Yongliang and Zhang, Xuhong and Zhang, Wenqi},
@@ -392,7 +385,7 @@
   howpublished = {GitHub repository},
   url          = {https://github.com/ZJU-OmniAI/vla-corrector}
 }</code></pre>
-        <button class="copy-button" type="button" data-copy-bibtex>Copy BibTeX</button>
+        <button class="copy-button" type="button" data-copy-bibtex data-copied-label="已复制" data-copy-label="复制 BibTeX" data-select-label="请选择 BibTeX">复制 BibTeX</button>
       </section>
     </main>
 

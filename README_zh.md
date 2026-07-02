@@ -4,7 +4,7 @@
   # VLA-Corrector
 
   <p>
-    <strong>English</strong> | <a href="README_zh.md">中文</a>
+    <a href="README.md">English</a> | <strong>中文</strong>
   </p>
 
   ### VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon
@@ -31,42 +31,42 @@
 
 ---
 
-**VLA-Corrector** is a lightweight detect-and-correct inference framework for action-chunked Vision-Language-Action (VLA) policies. It addresses the open-loop blind spot created by fixed action horizons: fresh observations arrive during execution, but the policy continues following queued actions until the horizon ends.
+**VLA-Corrector** 是一个面向 action-chunked Vision-Language-Action (VLA) 策略的轻量级 detect-and-correct 推理框架。它关注固定动作窗口带来的 open-loop blind spot：执行过程中新的观测已经到来，但策略仍可能继续执行队列中的旧动作，直到固定 horizon 结束。
 
-VLA-Corrector keeps the VLA backbone frozen and adds an external latent dynamics corrector. A Latent-space Vision Monitor (LVM) detects persistent mismatch between predicted and observed visual feature evolution; the system then truncates stale actions and invokes corrective replanning via Online Gradient Guidance (OGG).
+VLA-Corrector 不重训完整 VLA 主干，而是在推理时加入外部 latent dynamics corrector。Latent-space Vision Monitor (LVM) 比较预测与实际观测到的视觉特征演化；当检测到持续偏移时，系统截断 stale actions，并通过 Online Gradient Guidance (OGG) 触发纠错式 replanning。
 
-## Paper Figure
+## 论文图
 
 <p align="center">
   <img src="docs/assets/images/method_overview.png" alt="VLA-Corrector method overview" width="92%">
 </p>
 
-<p align="center"><b>VLA-Corrector method overview.</b></p>
+<p align="center"><b>VLA-Corrector 方法总览。</b></p>
 
-This figure is copied from the paper LaTeX source. It is not a generated project-page illustration.
+该图来自论文 LaTeX 源文件，不是额外生成的网页示意图。
 
-## Abstract
+## 摘要
 
-Action-chunked VLA policies reduce policy-call frequency and preserve temporal coherence by executing several future actions before querying the policy again. This design can fail in contact-rich manipulation, where small perturbations, pose drift, or slippage may compound inside the open-loop blind spot.
+Action-chunked VLA 通过一次生成多个未来动作来降低策略调用频率，并保持时间连续性。但在接触丰富的操作任务中，扰动、姿态漂移或滑移可能在 open-loop blind spot 内持续累积。
 
-VLA-Corrector mitigates this issue with an event-triggered adaptive action horizon. During stable execution it preserves the efficiency of long chunks. When latent visual dynamics indicate persistent drift, it truncates the current queue and applies OGG only to the next recovery query. The trainable component is an external lightweight corrector, not the full VLA backbone.
+VLA-Corrector 将固定动作 horizon 改造成事件触发的 adaptive action horizon。执行稳定时，它保留长 chunk 的效率；当 latent visual dynamics 显示持续偏移时，它截断当前动作队列，并只对下一次 recovery query 应用 OGG。可训练组件是外部轻量 corrector，而不是完整 VLA backbone。
 
-## Method
+## 方法
 
-The paper organizes VLA-Corrector into four parts:
+论文将 VLA-Corrector 组织为四个核心部分：
 
-1. **External latent dynamics corrector:** predicts short-horizon latent residuals from frozen VLA visual features and executed actions.
-2. **Latent-space Vision Monitor:** compares expected and observed latent visual evolution during action-chunk execution.
-3. **Event-triggered truncation:** discards remaining queued actions when persistent drift indicates that the chunk has become stale.
-4. **Online Gradient Guidance:** guides the single recovery replan immediately after an interrupt event.
+1. **External latent dynamics corrector:** 基于冻结 VLA 视觉特征和已执行动作预测短期 latent residual。
+2. **Latent-space Vision Monitor:** 在 action-chunk 执行过程中比较期望和实际的 latent visual evolution。
+3. **Event-triggered truncation:** 当持续偏移表明当前 chunk 已经过期时，丢弃剩余队列动作。
+4. **Online Gradient Guidance:** 在 interrupt event 后，对单次 recovery replan 进行引导。
 
-The paper reports residual MLP correctors with approximately **38--42M parameters**, referred to as a lightweight ~40M MLP corrector.
+论文报告的 residual MLP corrector 参数量约为 **38--42M**，因此可视为轻量级约 40M MLP corrector。
 
-## Results
+## 结果
 
-The following values are summarized from the paper LaTeX draft. See the paper for complete protocols, task splits, and appendix tables.
+以下结果来自论文 LaTeX 草稿摘要。完整协议、任务划分和附录表格请以论文为准。
 
-| Setting | Baseline | + VLA-Corrector | Reported change |
+| 设置 | Baseline | + VLA-Corrector | 提升 |
 | --- | ---: | ---: | ---: |
 | MetaWorld, PI0.5 avg. success | 48.70 | 64.35 | +15.65 |
 | MetaWorld, SmolVLA avg. success | 61.90 | 66.65 | +4.75 |
@@ -74,9 +74,9 @@ The following values are summarized from the paper LaTeX draft. See the paper fo
 | LIBERO, PI0.5 few-shot avg. success | 94.00 | 97.80 | +3.80 |
 | AgileX PiPER real-world avg. success | 55.6 | 73.3 | +17.7 |
 
-Additional analysis in the paper reports that truncation alone improves MetaWorld average success from 48.70% to 60.35%, while truncation plus OGG reaches 64.35%. The paper also reports that 83.7% of truncations occur in manually labeled critical phases.
+论文还报告：在 MetaWorld 组件消融中，仅 truncation 将平均成功率从 48.70% 提升到 60.35%，truncation + OGG 达到 64.35%。此外，83.7% 的 truncations 发生在人工标注的关键阶段。
 
-## Installation
+## 环境安装
 
 ```bash
 conda env create -f environment.yml
@@ -84,37 +84,37 @@ conda activate lerobot
 python -m pip install -e . --no-build-isolation
 ```
 
-For PushT simulation smoke tests:
+PushT 仿真 smoke test 可安装：
 
 ```bash
 python -m pip install -e '.[pusht]' --no-build-isolation
 ```
 
-Alternatively:
+或者：
 
 ```bash
 python -m pip install -r requirements.txt
 ```
 
-The exported environment name is `lerobot`. You can edit the `name:` field in `environment.yml` before creating the environment.
+导出的环境名为 `lerobot`。如需避免环境名冲突，可以在创建环境前修改 `environment.yml` 的 `name:` 字段。
 
-## Data and Checkpoints
+## 数据与权重
 
-This repository does **not** include datasets, raw demonstration data, training outputs, Hugging Face pretrained weights, fine-tuned VLA checkpoints, trained corrector checkpoints, wandb logs, or caches. The project page includes only compressed silent real-robot clips for visualization.
+本仓库**不包含**数据集、原始 demonstration data、训练输出、Hugging Face 预训练权重、微调后的 VLA checkpoint、训练后的 corrector checkpoint、wandb 日志或缓存。项目主页只包含压缩后的无声真机展示视频。
 
-Prepare or specify these paths yourself:
+请自行准备或指定以下路径：
 
 ```text
-<DATASET_DIR>             # Source LeRobot, MetaWorld, or LIBERO dataset
-<EXTRACTED_CACHE_DIR>     # Extracted latent cache from siglip_dynamics.extract
-<POLICY_CHECKPOINT>       # Base or fine-tuned PI0.5, SmolVLA, or X-VLA policy checkpoint
-<CORRECTOR_CHECKPOINT>    # Trained latent dynamics corrector checkpoint directory
-<OUTPUT_DIR>              # Local output directory, usually under outputs/
+<DATASET_DIR>             # LeRobot、MetaWorld 或 LIBERO 数据集
+<EXTRACTED_CACHE_DIR>     # siglip_dynamics.extract 提取后的 latent cache
+<POLICY_CHECKPOINT>       # PI0.5、SmolVLA 或 X-VLA policy checkpoint
+<CORRECTOR_CHECKPOINT>    # 训练后的 latent dynamics corrector checkpoint 目录
+<OUTPUT_DIR>              # 本地输出目录，通常位于 outputs/
 ```
 
-Known model names referenced by the code include:
+代码中引用的 Hugging Face 模型包括：
 
-| Component | Hugging Face repository referenced in source | Source location |
+| 组件 | Hugging Face 仓库 | 源码位置 |
 | --- | --- | --- |
 | PI0.5 base policy | [`lerobot/pi05_base`](https://huggingface.co/lerobot/pi05_base) | `tests/policies/pi0_pi05/test_pi05_original_vs_lerobot.py` |
 | SmolVLA base policy | [`lerobot/smolvla_base`](https://huggingface.co/lerobot/smolvla_base) | `src/lerobot/policies/smolvla/modeling_smolvla.py` |
@@ -123,9 +123,9 @@ Known model names referenced by the code include:
 | PI0/PI0.5 tokenizer backbone | [`google/paligemma-3b-pt-224`](https://huggingface.co/google/paligemma-3b-pt-224) | `src/lerobot/policies/pi05/processor_pi05.py` |
 | Fast action tokenizer | [`lerobot/fast-action-tokenizer`](https://huggingface.co/lerobot/fast-action-tokenizer) | `src/lerobot/scripts/lerobot_train_tokenizer.py` |
 
-Fine-tuned checkpoints are not included. Please specify your own checkpoint paths with `--policy.path` and `--safety_model_path`.
+微调权重不包含在仓库中。请通过 `--policy.path` 和 `--safety_model_path` 指定自己的 checkpoint。
 
-## Corrector Training
+## Corrector 训练
 
 Latent extraction:
 
@@ -156,9 +156,9 @@ torchrun --nproc_per_node=1 -m siglip_dynamics.train \
   --checkpoint-dir <CORRECTOR_CHECKPOINT>
 ```
 
-## Evaluation
+## 评测
 
-Main modified evaluation entry point:
+主要评测入口：
 
 ```bash
 python -m lerobot.scripts.lerobot_eval_modified_detection --help
@@ -199,16 +199,16 @@ python -m lerobot.scripts.lerobot_eval_modified_detection \
   --save_summary_json=true
 ```
 
-SmolVLA and X-VLA use the same entry point with backbone-specific policy arguments. Full evaluation requires simulator dependencies, GPU resources, datasets, policy checkpoints, and trained corrector checkpoints.
+SmolVLA 和 X-VLA 使用同一评测入口，但需要设置对应 backbone 的 policy 参数。完整评测需要仿真依赖、GPU、数据集、policy checkpoint 和训练后的 corrector checkpoint。
 
-## Repository Structure
+## 仓库结构
 
 ```text
 .
-├── src/lerobot/                 # LeRobot-based codebase and modified VLA policies
-├── src/siglip_dynamics/         # Latent extraction and corrector training
-├── docs/                        # English project page
-├── media/                       # Non-Pages media materials
+├── src/lerobot/                 # 基于 LeRobot 的代码与修改后的 VLA policy
+├── src/siglip_dynamics/         # Latent extraction 与 corrector 训练
+├── docs/                        # 中英文项目主页
+├── media/                       # 非 Pages 宣传材料
 ├── examples/
 ├── tests/
 ├── environment.yml
@@ -217,7 +217,7 @@ SmolVLA and X-VLA use the same entry point with backbone-specific policy argumen
 
 ## Citation
 
-Paper and arXiv links are coming soon. Until a public citation is available, please cite the repository:
+论文和 arXiv 链接暂未公开。在正式引用信息发布前，请暂时引用仓库：
 
 ```bibtex
 @misc{vla_corrector_2026,
@@ -229,6 +229,6 @@ Paper and arXiv links are coming soon. Until a public citation is available, ple
 }
 ```
 
-## Acknowledgements
+## 致谢
 
-This repository builds on LeRobot and the Hugging Face ecosystem, and references VLA backbones and benchmarks including PI0.5, SmolVLA, X-VLA, MetaWorld, and LIBERO. Please also cite the corresponding upstream projects when using this code.
+本仓库基于 LeRobot 和 Hugging Face 生态构建，并使用或参考 PI0.5、SmolVLA、X-VLA、MetaWorld 和 LIBERO 等 VLA backbone 与 benchmark。使用本代码时，也请引用相应上游项目。

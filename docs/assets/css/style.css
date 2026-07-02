@@ -73,6 +73,40 @@ a:hover {
   font-size: 14px;
 }
 
+.language-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(31, 41, 51, 0.05);
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.language-switch a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  min-height: 28px;
+  border-radius: 999px;
+  padding: 3px 10px;
+  color: var(--muted);
+}
+
+.language-switch a:hover {
+  text-decoration: none;
+  color: var(--blue);
+}
+
+.language-switch a.active {
+  background: var(--blue);
+  color: #fff;
+}
+
 .hero,
 .content-section,
 .figure-section,
@@ -641,6 +675,10 @@ pre {
   .topbar nav {
     justify-content: flex-start;
     gap: 10px 14px;
+  }
+
+  .language-switch {
+    align-self: flex-start;
   }
 
   .two-column,
