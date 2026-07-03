@@ -1,0 +1,40 @@
+1
+00:00:00,000 --> 00:00:08,000
+Meet VLA-Corrector: a lightweight detect-and-correct layer for
+action-chunked vision-language-action policies.
+
+2
+00:00:08,000 --> 00:00:21,000
+Action chunks reduce expensive VLA calls, but they also create an
+open-loop blind spot. After a small drift, the robot may keep executing
+stale actions until the horizon ends.
+
+3
+00:00:21,000 --> 00:00:36,000
+VLA-Corrector keeps the backbone policy frozen. A latent-space vision
+monitor detects visual dynamics mismatch, truncates stale actions, and
+triggers OGG-guided corrective replanning.
+
+4
+00:00:36,000 --> 00:00:48,700
+The trainable part is only a small external corrector, about forty million
+parameters in the paper. It learns local latent dynamics from
+demonstrations instead of retraining the full VLA.
+
+5
+00:00:48,700 --> 00:01:03,700
+Across simulation and real-world tasks, the paper reports clear gains:
+plus fifteen point six five points on MetaWorld with PI zero point five,
+plus three point eight on LIBERO, and plus seventeen point seven on AgileX
+PiPER real-world tasks.
+
+6
+00:01:03,700 --> 00:01:18,700
+In real-robot disturbance demos, VLA-Corrector is designed to stop
+trusting stale chunks and recover execution when the object, target, or
+drawer is moved during the task.
+
+7
+00:01:18,700 --> 00:01:26,700
+The code and project page are available now. The paper and arXiv link are
+coming soon.

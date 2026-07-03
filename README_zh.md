@@ -44,6 +44,13 @@ VLA-Corrector 不重训完整 VLA 主干，而是在推理时加入外部 latent
 
 该图来自论文 LaTeX 源文件，不是额外生成的网页示意图。
 
+## 视频概览
+
+项目主页包含简明配音概览视频：
+
+- [英文配音视频](https://zju-omniai.github.io/vla-corrector/#video-overview)
+- [中文配音视频](https://zju-omniai.github.io/vla-corrector/index_zh.html#video-overview)
+
 ## 摘要
 
 Action-chunked VLA 通过一次生成多个未来动作来降低策略调用频率，并保持时间连续性。但在接触丰富的操作任务中，扰动、姿态漂移或滑移可能在 open-loop blind spot 内持续累积。

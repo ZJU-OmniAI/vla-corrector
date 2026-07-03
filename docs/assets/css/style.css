@@ -349,6 +349,28 @@ h1 {
   padding-top: 42px;
 }
 
+.video-overview-section {
+  padding-top: 42px;
+}
+
+.overview-video-frame {
+  max-width: 980px;
+  margin: 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px;
+  background: #fff;
+  box-shadow: 0 16px 42px rgba(31, 41, 51, 0.1);
+}
+
+.overview-video-frame video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 6px;
+  background: #0f172a;
+}
+
 .video-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

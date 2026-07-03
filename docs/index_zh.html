@@ -9,7 +9,7 @@
       content="VLA-Corrector：面向自适应动作 horizon 的轻量级检测与纠错推理框架。"
     />
     <link rel="icon" href="assets/branding/vla_corrector_logo.png" />
-    <link rel="stylesheet" href="assets/css/style.css?v=bilingual-v1" />
+    <link rel="stylesheet" href="assets/css/style.css?v=video-overview-v1" />
   </head>
   <body>
     <header class="topbar">
@@ -19,6 +19,7 @@
       </a>
       <nav aria-label="页面导航">
         <a href="#abstract">摘要</a>
+        <a href="#video-overview">视频</a>
         <a href="#demos">真机展示</a>
         <a href="#method">方法</a>
         <a href="#experiments">实验</a>
@@ -111,6 +112,36 @@
             <strong>开环与闭环执行对比。</strong>
             在较长动作 horizon 下，机器人可能在偏离后继续执行 stale actions；逐步重规划虽然响应更快，
             但对 VLA 策略来说推理代价较高。
+          </figcaption>
+        </figure>
+      </section>
+
+      <section id="video-overview" class="content-section video-overview-section">
+        <div class="section-head-center">
+          <h2>视频概览</h2>
+          <p>
+            一个简明的中英文论文 teaser，用于展示 VLA-Corrector 的动机、方法核心和论文报告的实验效果。
+          </p>
+        </div>
+        <figure class="overview-video-frame">
+          <video controls playsinline preload="metadata" poster="assets/images/vla_corrector_video_poster.webp">
+            <source src="assets/videos/vla_corrector_overview_zh.mp4" type="video/mp4" />
+            <track
+              default
+              kind="subtitles"
+              srclang="zh"
+              label="中文"
+              src="assets/subtitles/vla_corrector_overview_zh.srt"
+            />
+            <track
+              kind="subtitles"
+              srclang="en"
+              label="English"
+              src="assets/subtitles/vla_corrector_overview_en.srt"
+            />
+          </video>
+          <figcaption class="caption">
+            中文配音版。英文配音版可在英文项目主页观看。
           </figcaption>
         </figure>
       </section>
