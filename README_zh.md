@@ -22,7 +22,7 @@
 
   [![Project Page](https://img.shields.io/badge/Project_Page-1A73E8?style=for-the-badge&logo=googlechrome&logoColor=white)](https://zju-omniai.github.io/vla-corrector/)
   [![Code](https://img.shields.io/badge/Code-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ZJU-OmniAI/vla-corrector)
-  [![arXiv](https://img.shields.io/badge/arXiv-Coming_Soon-B31B1B?style=for-the-badge&logo=arxiv&logoColor=white)](#citation)
+  [![arXiv](https://img.shields.io/badge/arXiv-2607.01804-B31B1B?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2607.01804)
   [![BibTeX](https://img.shields.io/badge/Cite-BibTeX-4C8C4A?style=for-the-badge&logo=googlescholar&logoColor=white)](#citation)
 
   <br/>
@@ -226,15 +226,17 @@ SmolVLA 和 X-VLA 使用同一评测入口，但需要设置对应 backbone 的 
 
 ## Citation
 
-论文和 arXiv 链接暂未公开。在正式引用信息发布前，请暂时引用仓库：
+论文已发布在 arXiv：[https://arxiv.org/abs/2607.01804](https://arxiv.org/abs/2607.01804)。
 
 ```bibtex
-@misc{vla_corrector_2026,
-  title        = {VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon},
-  author       = {Pan, Yi and Pan, Miao and Lu, Qi and Huang, Jiaming and Zhang, Man and Huang, Siteng and Li, Xin and Zhang, Jie and Shen, Yongliang and Zhang, Xuhong and Zhang, Wenqi},
-  year         = {2026},
-  howpublished = {GitHub repository},
-  url          = {https://github.com/ZJU-OmniAI/vla-corrector}
+@misc{pan2026vlacorrectorlightweightdetectandcorrectinference,
+      title={VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon},
+      author={Yi Pan and Miao Pan and Qi Lu and Jiaming Huang and Man Zhang and Siteng Huang and Xin Li and Jie Zhang and Yongliang Shen and Xuhong Zhang and Wenqi Zhang},
+      year={2026},
+      eprint={2607.01804},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO},
+      url={https://arxiv.org/abs/2607.01804},
 }
 ```
 

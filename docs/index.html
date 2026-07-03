@@ -89,7 +89,7 @@
             </span>
             <span data-presentation-label>Presentation</span>
           </a>
-          <span class="btn ghost disabled" aria-disabled="true">
+          <a class="btn ghost" href="https://arxiv.org/abs/2607.01804" target="_blank" rel="noopener">
             <span class="i" aria-hidden="true">
               <svg class="arxiv-mark" viewBox="0 0 24 24" role="img">
                 <rect x="4.4" y="4.2" width="15.2" height="15.6" rx="2.2" />
@@ -97,8 +97,8 @@
                 <text x="12" y="14.3" text-anchor="middle">aX</text>
               </svg>
             </span>
-            <span>arXiv Coming soon</span>
-          </span>
+            <span>arXiv 2607.01804</span>
+          </a>
           <a class="btn ghost" href="#citation">
             <span class="i" aria-hidden="true">
               <svg viewBox="0 0 24 24" role="img">
@@ -122,9 +122,6 @@
                 <a class="presentation-action" href="presentation.html" target="_blank" rel="noopener">
                   <span>Open full</span>
                 </a>
-                <a class="presentation-action" href="assets/presentation/vla_corrector_presentation.pptx">
-                  <span>Download PPTX</span>
-                </a>
                 <button class="presentation-action" type="button" id="presentClose">
                   <span>Collapse</span>
                 </button>
@@ -134,7 +131,7 @@
               <iframe
                 id="presentIframe"
                 title="VLA-Corrector presentation"
-                data-src="presentation.html"
+                data-src="presentation.html?v=arxiv-v1"
                 allowfullscreen
               ></iframe>
             </div>
@@ -429,13 +426,15 @@
 
       <section id="citation" class="content-section">
         <h2>Citation</h2>
-        <p>Paper and arXiv links are coming soon. Until a public citation is available, please cite the repository.</p>
-        <pre id="bibtex"><code>@misc{vla_corrector_2026,
-  title        = {VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon},
-  author       = {Pan, Yi and Pan, Miao and Lu, Qi and Huang, Jiaming and Zhang, Man and Huang, Siteng and Li, Xin and Zhang, Jie and Shen, Yongliang and Zhang, Xuhong and Zhang, Wenqi},
-  year         = {2026},
-  howpublished = {GitHub repository},
-  url          = {https://github.com/ZJU-OmniAI/vla-corrector}
+        <p>The paper is available on arXiv: <a href="https://arxiv.org/abs/2607.01804">2607.01804</a>.</p>
+        <pre id="bibtex"><code>@misc{pan2026vlacorrectorlightweightdetectandcorrectinference,
+      title={VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon},
+      author={Yi Pan and Miao Pan and Qi Lu and Jiaming Huang and Man Zhang and Siteng Huang and Xin Li and Jie Zhang and Yongliang Shen and Xuhong Zhang and Wenqi Zhang},
+      year={2026},
+      eprint={2607.01804},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO},
+      url={https://arxiv.org/abs/2607.01804},
 }</code></pre>
         <button class="copy-button" type="button" data-copy-bibtex>Copy BibTeX</button>
       </section>

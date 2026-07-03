@@ -215,7 +215,12 @@ def slide_title(assets) -> Image.Image:
         1230,
         10,
     )
-    draw.text((110, 815), "Code: github.com/ZJU-OmniAI/vla-corrector   ·   Paper / arXiv: Coming soon", font=pil_font(22), fill=MUTED)
+    draw.text(
+        (110, 815),
+        "Code: github.com/ZJU-OmniAI/vla-corrector   ·   arXiv: arxiv.org/abs/2607.01804",
+        font=pil_font(22),
+        fill=MUTED,
+    )
     return img
 
 
@@ -320,8 +325,8 @@ def slide_resources(assets) -> Image.Image:
     rows = [
         ("Code", "https://github.com/ZJU-OmniAI/vla-corrector"),
         ("Project page", "https://zju-omniai.github.io/vla-corrector/"),
-        ("Paper", "Coming soon"),
-        ("arXiv", "Coming soon"),
+        ("Paper", "https://arxiv.org/abs/2607.01804"),
+        ("arXiv", "https://arxiv.org/abs/2607.01804"),
         ("Editable slides", "docs/assets/presentation/vla_corrector_presentation.pptx"),
     ]
     y = 360
@@ -459,7 +464,17 @@ def build_pptx() -> Path:
         25,
         True,
     )
-    add_textbox(slide, 0.9, 6.85, 11.7, 0.25, "Code: github.com/ZJU-OmniAI/vla-corrector   ·   Paper / arXiv: Coming soon", 11, False, MUTED)
+    add_textbox(
+        slide,
+        0.9,
+        6.85,
+        11.7,
+        0.25,
+        "Code: github.com/ZJU-OmniAI/vla-corrector   ·   arXiv: arxiv.org/abs/2607.01804",
+        11,
+        False,
+        MUTED,
+    )
 
     slide = prs.slides.add_slide(blank)
     background(slide)
@@ -523,8 +538,8 @@ def build_pptx() -> Path:
     for y, key, val in [
         (3.05, "Code", "https://github.com/ZJU-OmniAI/vla-corrector"),
         (3.82, "Project page", "https://zju-omniai.github.io/vla-corrector/"),
-        (4.59, "Paper", "Coming soon"),
-        (5.36, "arXiv", "Coming soon"),
+        (4.59, "Paper", "https://arxiv.org/abs/2607.01804"),
+        (5.36, "arXiv", "https://arxiv.org/abs/2607.01804"),
         (6.13, "Editable slides", "docs/assets/presentation/vla_corrector_presentation.pptx"),
     ]:
         add_textbox(slide, 1.65, y, 2.2, 0.25, key, 16, True, BLUE)

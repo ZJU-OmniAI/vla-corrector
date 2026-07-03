@@ -7,7 +7,6 @@
     <style>
       :root {
         --bg: #101827;
-        --panel: rgba(255, 255, 255, 0.94);
         --text: #17202a;
         --muted: #64748b;
         --blue: #2f5f9f;
@@ -36,14 +35,13 @@
 
       .deck {
         display: grid;
-        grid-template-rows: auto minmax(0, 1fr) auto;
+        grid-template-rows: minmax(0, 1fr) auto;
         gap: 10px;
         width: 100%;
         height: 100%;
         padding: 12px;
       }
 
-      .deck-bar,
       .deck-footer {
         display: flex;
         align-items: center;
@@ -52,57 +50,9 @@
         border: 1px solid var(--line);
         border-radius: 999px;
         padding: 8px 10px 8px 14px;
-        background: var(--panel);
+        background: rgba(255, 255, 255, 0.94);
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
         backdrop-filter: blur(12px);
-      }
-
-      .deck-title {
-        display: inline-flex;
-        align-items: center;
-        gap: 9px;
-        min-width: 0;
-        color: var(--text);
-        font-size: 14px;
-        font-weight: 800;
-      }
-
-      .deck-title::before {
-        content: "";
-        flex: 0 0 9px;
-        width: 9px;
-        height: 9px;
-        border-radius: 50%;
-        background: var(--blue);
-        box-shadow: 0 0 0 5px rgba(47, 95, 159, 0.12);
-      }
-
-      .deck-actions {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 30px;
-        border: 1px solid rgba(47, 95, 159, 0.22);
-        border-radius: 999px;
-        padding: 5px 11px;
-        background: #fff;
-        color: var(--text);
-        font: inherit;
-        font-size: 13px;
-        font-weight: 750;
-        text-decoration: none;
-        cursor: pointer;
-      }
-
-      .pill:hover {
-        border-color: rgba(47, 95, 159, 0.48);
-        color: var(--blue);
       }
 
       .slide-shell {
@@ -186,7 +136,6 @@
           padding: 8px;
         }
 
-        .deck-bar,
         .deck-footer {
           align-items: flex-start;
           flex-direction: column;
@@ -203,17 +152,9 @@
   </head>
   <body>
     <main class="deck" aria-label="VLA-Corrector slide presentation">
-      <header class="deck-bar">
-        <div class="deck-title">VLA-Corrector Presentation</div>
-        <div class="deck-actions">
-          <a class="pill" href="assets/presentation/vla_corrector_presentation.pptx" download>Download PPTX</a>
-          <a class="pill" href="assets/presentation/vla_corrector_presentation.pdf" target="_blank" rel="noopener">Open PDF</a>
-        </div>
-      </header>
-
       <section class="slide-shell">
         <button class="nav prev" type="button" aria-label="Previous slide" data-prev>&lsaquo;</button>
-        <img class="slide" id="slide" src="assets/presentation/slides/slide_01.png" alt="Presentation slide 1" />
+        <img class="slide" id="slide" src="assets/presentation/slides/slide_01.png?v=arxiv-v1" alt="Presentation slide 1" />
         <button class="nav next" type="button" aria-label="Next slide" data-next>&rsaquo;</button>
       </section>
 
@@ -225,13 +166,13 @@
 
     <script>
       const slides = [
-        "assets/presentation/slides/slide_01.png",
-        "assets/presentation/slides/slide_02.png",
-        "assets/presentation/slides/slide_03.png",
-        "assets/presentation/slides/slide_04.png",
-        "assets/presentation/slides/slide_05.png",
-        "assets/presentation/slides/slide_06.png",
-        "assets/presentation/slides/slide_07.png",
+        "assets/presentation/slides/slide_01.png?v=arxiv-v1",
+        "assets/presentation/slides/slide_02.png?v=arxiv-v1",
+        "assets/presentation/slides/slide_03.png?v=arxiv-v1",
+        "assets/presentation/slides/slide_04.png?v=arxiv-v1",
+        "assets/presentation/slides/slide_05.png?v=arxiv-v1",
+        "assets/presentation/slides/slide_06.png?v=arxiv-v1",
+        "assets/presentation/slides/slide_07.png?v=arxiv-v1",
       ];
 
       const slide = document.querySelector("#slide");
