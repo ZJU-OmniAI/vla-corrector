@@ -1,10 +1,19 @@
 const copyButton = document.querySelector("[data-copy-bibtex]");
 const bibtex = document.querySelector("#bibtex");
 const pageRoot = document.documentElement;
+const introStart = performance.now();
+const minIntroMs = 620;
+let didMarkReady = false;
 
 function markPageReady() {
-  pageRoot.classList.remove("page-loading");
-  pageRoot.classList.add("page-ready");
+  if (didMarkReady) return;
+  didMarkReady = true;
+  const elapsed = performance.now() - introStart;
+  const wait = Math.max(0, minIntroMs - elapsed);
+  window.setTimeout(() => {
+    pageRoot.classList.remove("page-loading");
+    pageRoot.classList.add("page-ready");
+  }, wait);
 }
 
 if (document.readyState === "loading") {
