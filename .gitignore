@@ -79,10 +79,6 @@ coverage.xml
 *.py,cover
 tests/artifacts/
 
-# generated media build intermediates
-media/video_overview/build/
-media/video_overview/audio_tmp/
-
 ### Logs & Temporary Files ###
 logs/
 tmp/

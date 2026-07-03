@@ -44,12 +44,15 @@ VLA-Corrector 不重训完整 VLA 主干，而是在推理时加入外部 latent
 
 该图来自论文 LaTeX 源文件，不是额外生成的网页示意图。
 
-## 视频概览
+## Presentation
 
-项目主页包含简明配音概览视频：
+项目主页包含一份轻量级论文展示 slides，内容来自项目 teaser 和论文图：
 
-- [英文配音视频](https://zju-omniai.github.io/vla-corrector/#video-overview)
-- [中文配音视频](https://zju-omniai.github.io/vla-corrector/index_zh.html#video-overview)
+- [打开网页演示](https://zju-omniai.github.io/vla-corrector/#presentationEmbed)
+- [可编辑 PPTX](docs/assets/presentation/vla_corrector_presentation.pptx)
+- [PDF 导出版本](docs/assets/presentation/vla_corrector_presentation.pdf)
+
+之后如果你人工编辑 PPTX，需要把新版 slides 导出为 PNG 并覆盖 `docs/assets/presentation/slides/`，网页展示才会同步更新。
 
 ## 摘要
 

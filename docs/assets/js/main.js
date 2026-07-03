@@ -19,3 +19,49 @@ copyButton?.addEventListener("click", async () => {
     }, 1400);
   }
 });
+
+const presentationButton = document.querySelector("#presentBtn");
+const presentationEmbed = document.querySelector("#presentationEmbed");
+const presentationIframe = document.querySelector("#presentIframe");
+const presentationLabel = document.querySelector("[data-presentation-label]");
+const presentationClose = document.querySelector("#presentClose");
+
+function scrollToPresentation() {
+  const top = (presentationEmbed?.getBoundingClientRect().top ?? 0) + window.scrollY - 8;
+  window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+}
+
+function openPresentation() {
+  if (!presentationButton || !presentationEmbed || !presentationIframe) return;
+  if (!presentationIframe.getAttribute("src")) {
+    presentationIframe.setAttribute("src", presentationIframe.dataset.src ?? "presentation.html");
+  }
+  presentationEmbed.classList.add("open");
+  presentationButton.classList.add("is-open");
+  presentationButton.setAttribute("aria-expanded", "true");
+  if (presentationLabel) presentationLabel.textContent = "Hide Presentation";
+  requestAnimationFrame(scrollToPresentation);
+}
+
+function closePresentation(scrollBack = true) {
+  if (!presentationButton || !presentationEmbed) return;
+  presentationEmbed.classList.remove("open");
+  presentationButton.classList.remove("is-open");
+  presentationButton.setAttribute("aria-expanded", "false");
+  if (presentationLabel) presentationLabel.textContent = "Presentation";
+  if (scrollBack) {
+    const top = presentationButton.getBoundingClientRect().top + window.scrollY - 120;
+    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+  }
+}
+
+presentationButton?.addEventListener("click", (event) => {
+  event.preventDefault();
+  if (presentationEmbed?.classList.contains("open")) {
+    closePresentation(true);
+  } else {
+    openPresentation();
+  }
+});
+
+presentationClose?.addEventListener("click", () => closePresentation(true));

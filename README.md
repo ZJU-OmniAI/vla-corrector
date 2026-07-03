@@ -44,12 +44,15 @@ VLA-Corrector keeps the VLA backbone frozen and adds an external latent dynamics
 
 This figure is copied from the paper LaTeX source. It is not a generated project-page illustration.
 
-## Video Overview
+## Presentation
 
-The project page includes concise narrated overview videos:
+The project page includes a lightweight slide presentation adapted from the project teaser materials:
 
-- [English overview video](https://zju-omniai.github.io/vla-corrector/#video-overview)
-- [Chinese overview video](https://zju-omniai.github.io/vla-corrector/index_zh.html#video-overview)
+- [Open the presentation viewer](https://zju-omniai.github.io/vla-corrector/#presentationEmbed)
+- [Editable PPTX](docs/assets/presentation/vla_corrector_presentation.pptx)
+- [PDF export](docs/assets/presentation/vla_corrector_presentation.pdf)
+
+After editing the PPTX, export the updated slides as PNG files into `docs/assets/presentation/slides/` to refresh the web viewer.
 
 ## Abstract
 

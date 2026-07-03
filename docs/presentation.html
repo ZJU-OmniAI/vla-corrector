@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>VLA-Corrector Presentation</title>
+    <style>
+      :root {
+        --bg: #101827;
+        --panel: rgba(255, 255, 255, 0.94);
+        --text: #17202a;
+        --muted: #64748b;
+        --blue: #2f5f9f;
+        --line: rgba(15, 23, 42, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at 16% 10%, rgba(47, 95, 159, 0.28), transparent 28%),
+          radial-gradient(circle at 86% 16%, rgba(116, 143, 178, 0.16), transparent 30%),
+          var(--bg);
+        color: var(--text);
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        overflow: hidden;
+      }
+
+      .deck {
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        gap: 10px;
+        width: 100%;
+        height: 100%;
+        padding: 12px;
+      }
+
+      .deck-bar,
+      .deck-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 8px 10px 8px 14px;
+        background: var(--panel);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+        backdrop-filter: blur(12px);
+      }
+
+      .deck-title {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        min-width: 0;
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .deck-title::before {
+        content: "";
+        flex: 0 0 9px;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--blue);
+        box-shadow: 0 0 0 5px rgba(47, 95, 159, 0.12);
+      }
+
+      .deck-actions {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 30px;
+        border: 1px solid rgba(47, 95, 159, 0.22);
+        border-radius: 999px;
+        padding: 5px 11px;
+        background: #fff;
+        color: var(--text);
+        font: inherit;
+        font-size: 13px;
+        font-weight: 750;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .pill:hover {
+        border-color: rgba(47, 95, 159, 0.48);
+        color: var(--blue);
+      }
+
+      .slide-shell {
+        position: relative;
+        display: grid;
+        place-items: center;
+        min-height: 0;
+      }
+
+      .slide {
+        display: block;
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 10px;
+        background: #f8fafc;
+        box-shadow:
+          0 24px 70px rgba(0, 0, 0, 0.36),
+          0 0 0 1px rgba(255, 255, 255, 0.1);
+      }
+
+      .nav {
+        position: absolute;
+        top: 50%;
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        border: 1px solid rgba(255, 255, 255, 0.38);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.88);
+        color: var(--text);
+        font-size: 24px;
+        font-weight: 700;
+        transform: translateY(-50%);
+        cursor: pointer;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+      }
+
+      .nav:hover {
+        background: #fff;
+        color: var(--blue);
+      }
+
+      .nav.prev {
+        left: 14px;
+      }
+
+      .nav.next {
+        right: 14px;
+      }
+
+      .counter {
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .dots {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        border: 0;
+        border-radius: 50%;
+        background: #cbd5e1;
+        cursor: pointer;
+      }
+
+      .dot.active {
+        width: 22px;
+        border-radius: 999px;
+        background: var(--blue);
+      }
+
+      @media (max-width: 720px) {
+        .deck {
+          padding: 8px;
+        }
+
+        .deck-bar,
+        .deck-footer {
+          align-items: flex-start;
+          flex-direction: column;
+          border-radius: 16px;
+        }
+
+        .nav {
+          width: 36px;
+          height: 36px;
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="deck" aria-label="VLA-Corrector slide presentation">
+      <header class="deck-bar">
+        <div class="deck-title">VLA-Corrector Presentation</div>
+        <div class="deck-actions">
+          <a class="pill" href="assets/presentation/vla_corrector_presentation.pptx" download>Download PPTX</a>
+          <a class="pill" href="assets/presentation/vla_corrector_presentation.pdf" target="_blank" rel="noopener">Open PDF</a>
+        </div>
+      </header>
+
+      <section class="slide-shell">
+        <button class="nav prev" type="button" aria-label="Previous slide" data-prev>&lsaquo;</button>
+        <img class="slide" id="slide" src="assets/presentation/slides/slide_01.png" alt="Presentation slide 1" />
+        <button class="nav next" type="button" aria-label="Next slide" data-next>&rsaquo;</button>
+      </section>
+
+      <footer class="deck-footer">
+        <span class="counter" id="counter">1 / 7</span>
+        <div class="dots" id="dots" aria-label="Slide navigation"></div>
+      </footer>
+    </main>
+
+    <script>
+      const slides = [
+        "assets/presentation/slides/slide_01.png",
+        "assets/presentation/slides/slide_02.png",
+        "assets/presentation/slides/slide_03.png",
+        "assets/presentation/slides/slide_04.png",
+        "assets/presentation/slides/slide_05.png",
+        "assets/presentation/slides/slide_06.png",
+        "assets/presentation/slides/slide_07.png",
+      ];
+
+      const slide = document.querySelector("#slide");
+      const counter = document.querySelector("#counter");
+      const dots = document.querySelector("#dots");
+      let index = 0;
+
+      slides.forEach((_, i) => {
+        const dot = document.createElement("button");
+        dot.className = "dot";
+        dot.type = "button";
+        dot.setAttribute("aria-label", `Go to slide ${i + 1}`);
+        dot.addEventListener("click", () => show(i));
+        dots.appendChild(dot);
+      });
+
+      function show(next) {
+        index = (next + slides.length) % slides.length;
+        slide.src = slides[index];
+        slide.alt = `Presentation slide ${index + 1}`;
+        counter.textContent = `${index + 1} / ${slides.length}`;
+        dots.querySelectorAll(".dot").forEach((dot, i) => {
+          dot.classList.toggle("active", i === index);
+        });
+      }
+
+      document.querySelector("[data-prev]").addEventListener("click", () => show(index - 1));
+      document.querySelector("[data-next]").addEventListener("click", () => show(index + 1));
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft") show(index - 1);
+        if (event.key === "ArrowRight") show(index + 1);
+      });
+      show(0);
+    </script>
+  </body>
+</html>
