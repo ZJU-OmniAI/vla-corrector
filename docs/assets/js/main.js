@@ -1,5 +1,19 @@
 const copyButton = document.querySelector("[data-copy-bibtex]");
 const bibtex = document.querySelector("#bibtex");
+const pageRoot = document.documentElement;
+
+function markPageReady() {
+  pageRoot.classList.remove("page-loading");
+  pageRoot.classList.add("page-ready");
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", markPageReady, { once: true });
+} else {
+  requestAnimationFrame(markPageReady);
+}
+
+window.addEventListener("load", markPageReady, { once: true });
 
 copyButton?.addEventListener("click", async () => {
   const copyLabel = copyButton.dataset.copyLabel ?? "Copy BibTeX";
@@ -65,3 +79,33 @@ presentationButton?.addEventListener("click", (event) => {
 });
 
 presentationClose?.addEventListener("click", () => closePresentation(true));
+
+const revealTargets = [
+  ...document.querySelectorAll(
+    ".content-section, .demo-section, .figure-section, .split-layout, .figure-grid, .footer",
+  ),
+].filter((node) => !node.closest(".presentation-embed"));
+
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if (revealTargets.length && !reducedMotion && "IntersectionObserver" in window) {
+  revealTargets.forEach((target) => target.classList.add("reveal-float"));
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      root: null,
+      rootMargin: "0px 0px -12% 0px",
+      threshold: 0.08,
+    },
+  );
+  revealTargets.forEach((target) => observer.observe(target));
+} else {
+  revealTargets.forEach((target) => target.classList.add("is-visible"));
+}

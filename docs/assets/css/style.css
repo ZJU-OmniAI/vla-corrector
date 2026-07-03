@@ -27,6 +27,27 @@ body {
   counter-reset: page-section;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(47, 95, 159, 0.16), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 249, 252, 0.92));
+  transition: opacity 520ms ease;
+}
+
+html.js-enabled.page-loading body::before {
+  opacity: 1;
+}
+
+html.js-enabled.page-ready body::before {
+  opacity: 0;
+}
+
 a {
   color: var(--blue);
   text-decoration: none;
@@ -768,6 +789,153 @@ pre {
 
 .footer strong {
   color: var(--text);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes heroFloatIn {
+    from {
+      opacity: 0;
+      filter: blur(10px);
+      transform: translate3d(0, 26px, 0) scale(0.985);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes topbarDropIn {
+    from {
+      opacity: 0;
+      transform: translate3d(0, -18px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes paperFloat {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, -7px, 0);
+    }
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  html.js-enabled.page-loading .topbar,
+  html.js-enabled.page-loading .hero > *,
+  html.js-enabled.page-loading .teaser-section {
+    opacity: 0;
+  }
+
+  html.js-enabled.page-ready .topbar {
+    animation: topbarDropIn 650ms cubic-bezier(0.2, 0.72, 0.18, 1) both;
+  }
+
+  html.js-enabled.page-ready .hero > * {
+    animation: heroFloatIn 820ms cubic-bezier(0.2, 0.72, 0.18, 1) both;
+  }
+
+  html.js-enabled.page-ready .hero-logo {
+    animation-delay: 90ms;
+  }
+
+  html.js-enabled.page-ready .hero h1 {
+    animation-delay: 180ms;
+  }
+
+  html.js-enabled.page-ready .tagline {
+    animation-delay: 270ms;
+  }
+
+  html.js-enabled.page-ready .authors {
+    animation-delay: 360ms;
+  }
+
+  html.js-enabled.page-ready .affiliation {
+    animation-delay: 420ms;
+  }
+
+  html.js-enabled.page-ready .emails {
+    animation-delay: 480ms;
+  }
+
+  html.js-enabled.page-ready .links {
+    animation-delay: 570ms;
+  }
+
+  html.js-enabled.page-ready .teaser-section {
+    animation: heroFloatIn 900ms 720ms cubic-bezier(0.2, 0.72, 0.18, 1) both;
+  }
+
+  html.js-enabled.page-ready .teaser-card {
+    animation: paperFloat 6.5s 1.7s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+  .reveal-float {
+    opacity: 0;
+    filter: blur(7px);
+    transform: translate3d(0, 34px, 0);
+    transition:
+      opacity 720ms ease,
+      filter 720ms ease,
+      transform 720ms cubic-bezier(0.2, 0.72, 0.18, 1);
+    will-change: opacity, filter, transform;
+  }
+
+  .reveal-float.is-visible {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  .video-card,
+  .insight-card,
+  .idea-card,
+  .result-card,
+  .paper-figure-frame,
+  .note-grid p,
+  .two-column > div {
+    transition:
+      transform 190ms ease,
+      box-shadow 190ms ease,
+      border-color 190ms ease;
+  }
+
+  .video-card:hover,
+  .insight-card:hover,
+  .idea-card:hover,
+  .result-card:hover,
+  .paper-figure-frame:hover,
+  .note-grid p:hover,
+  .two-column > div:hover {
+    border-color: rgba(47, 95, 159, 0.26);
+    box-shadow: 0 16px 38px rgba(31, 41, 51, 0.11);
+    transform: translate3d(0, -3px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  html.js-enabled.page-loading body::before,
+  html.js-enabled.page-ready body::before {
+    opacity: 0;
+  }
 }
 
 @media (max-width: 860px) {
