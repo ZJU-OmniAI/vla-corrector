@@ -42,18 +42,6 @@ VLA-Corrector keeps the VLA backbone frozen and adds an external latent dynamics
 
 <p align="center"><b>VLA-Corrector method overview.</b></p>
 
-This figure is copied from the paper LaTeX source. It is not a generated project-page illustration.
-
-## Presentation
-
-The project page includes a lightweight slide presentation adapted from the project teaser materials:
-
-- [Open the presentation viewer](https://zju-omniai.github.io/vla-corrector/#presentationEmbed)
-- [Editable PPTX](docs/assets/presentation/vla_corrector_presentation.pptx)
-- [PDF export](docs/assets/presentation/vla_corrector_presentation.pdf)
-
-After editing the PPTX, export the updated slides as PNG files into `docs/assets/presentation/slides/` to refresh the web viewer.
-
 ## Abstract
 
 Action-chunked VLA policies reduce policy-call frequency and preserve temporal coherence by executing several future actions before querying the policy again. This design can fail in contact-rich manipulation, where small perturbations, pose drift, or slippage may compound inside the open-loop blind spot.
@@ -73,7 +61,7 @@ The paper reports residual MLP correctors with approximately **38--42M parameter
 
 ## Results
 
-The following values are summarized from the paper LaTeX draft. See the paper for complete protocols, task splits, and appendix tables.
+The following values summarize the paper's reported results. See the paper for complete protocols, task splits, and appendix tables.
 
 | Setting | Baseline | + VLA-Corrector | Reported change |
 | --- | ---: | ---: | ---: |
