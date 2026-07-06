@@ -28,6 +28,13 @@
   <br/>
 </div>
 
+<div align="center">
+  <video src="https://github.com/ZJU-OmniAI/vla-corrector/raw/main/docs/assets/videos/vla_corrector_demo.mp4" controls muted width="80%">
+    Your browser does not support the video tag.
+    <a href="https://github.com/ZJU-OmniAI/vla-corrector/raw/main/docs/assets/videos/vla_corrector_demo.mp4">Download the demo video</a>.
+  </video>
+</div>
+
 ---
 
 **VLA-Corrector** is a lightweight detect-and-correct inference framework for action-chunked Vision-Language-Action (VLA) policies. It addresses the open-loop blind spot created by fixed action horizons: fresh observations arrive during execution, but the policy continues following queued actions until the horizon ends.
