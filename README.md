@@ -217,14 +217,11 @@ SmolVLA and X-VLA use the same entry point with backbone-specific policy argumen
 The paper is available on arXiv: [https://arxiv.org/abs/2607.01804](https://arxiv.org/abs/2607.01804).
 
 ```bibtex
-@misc{pan2026vlacorrectorlightweightdetectandcorrectinference,
-      title={VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon},
-      author={Yi Pan and Miao Pan and Qi Lu and Jiaming Huang and Man Zhang and Siteng Huang and Xin Li and Jie Zhang and Yongliang Shen and Xuhong Zhang and Wenqi Zhang},
-      year={2026},
-      eprint={2607.01804},
-      archivePrefix={arXiv},
-      primaryClass={cs.RO},
-      url={https://arxiv.org/abs/2607.01804},
+@article{pan2026vla,
+  title={VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon},
+  author={Pan, Yi and Pan, Miao and Lu, Qi and Huang, Jiaming and Zhang, Man and Huang, Siteng and Li, Xin and Zhang, Jie and Shen, Yongliang and Zhang, Xuhong and others},
+  journal={arXiv preprint arXiv:2607.01804},
+  year={2026}
 }
 ```
 
