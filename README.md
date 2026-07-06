@@ -29,7 +29,7 @@
 </div>
 
 <div align="center">
-  <video src="https://github.com/user-attachments/assets/3ef4b30d-99b1-4b40-8e07-7c9ec27a6df9" controls muted width="80%"></video>
+  <video src="https://github.com/user-attachments/assets/eb2b70f7-f8d9-4d18-b85a-7014949fde7b" controls muted width="80%"></video>
 </div>
 
 ---
