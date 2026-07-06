@@ -28,6 +28,10 @@
   <br/>
 </div>
 
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/eb2b70f7-f8d9-4d18-b85a-7014949fde7b" controls muted width="80%"></video>
+</div>
+
 ---
 
 **VLA-Corrector** 是一个面向 action-chunked Vision-Language-Action (VLA) 策略的轻量级 detect-and-correct 推理框架。它关注固定动作窗口带来的 open-loop blind spot：执行过程中新的观测已经到来，但策略仍可能继续执行队列中的旧动作，直到固定 horizon 结束。
