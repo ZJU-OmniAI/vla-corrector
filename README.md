@@ -9,6 +9,8 @@
 
   ### VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon
 
+  <p><b>NeurIPS 2026</b></p>
+
   <p>
     Yi Pan<sup>1</sup>, Miao Pan<sup>1</sup>, Qi Lu<sup>1</sup>, Jiaming Huang<sup>1</sup>,
     Man Zhang<sup>1</sup>, Siteng Huang<sup>2</sup>, Xin Li<sup>2</sup>, Jie Zhang<sup>1</sup>,
@@ -23,7 +25,11 @@
   [![Project Page](https://img.shields.io/badge/Project_Page-1A73E8?style=for-the-badge&logo=googlechrome&logoColor=white)](https://zju-omniai.github.io/vla-corrector/)
   [![Code](https://img.shields.io/badge/Code-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ZJU-OmniAI/vla-corrector)
   [![arXiv](https://img.shields.io/badge/arXiv-2607.01804-B31B1B?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2607.01804)
-  [![BibTeX](https://img.shields.io/badge/Cite-BibTeX-4C8C4A?style=for-the-badge&logo=googlescholar&logoColor=white)](#citation)
+  [![BibTeX](https://img.shields.io/badge/Cite-BibTeX-4C8C4A?style=for-the-badge&logo=googlescholar&logoColor=white)](#-citation)
+
+  [![NeurIPS 2026](https://img.shields.io/badge/NeurIPS-2026-4B44CE?style=for-the-badge)](https://neurips.cc/Conferences/2026)
+  [![机器之心](https://img.shields.io/badge/Press-%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83-07C160?style=for-the-badge&logo=wechat&logoColor=white)](https://mp.weixin.qq.com/s/rfSPbtc2_fRpggXeBPPC3Q)
+  [![Hugging Face Daily Paper](https://img.shields.io/badge/Hugging_Face-Daily_Paper-FFD21E?style=for-the-badge&logo=huggingface&logoColor=FFD21E)](https://huggingface.co/papers/2607.01804)
 
   <br/>
 </div>
@@ -32,13 +38,20 @@
   <video src="https://github.com/user-attachments/assets/eb2b70f7-f8d9-4d18-b85a-7014949fde7b" controls muted width="80%"></video>
 </div>
 
+## 🔥 News
+
+- **2026.09:** 🎉 VLA-Corrector is accepted to **NeurIPS 2026**!
+- **2026.09:** 📰 Covered by 机器之心 (Synced): [《VLA开环盲区，终于被堵上了：40M Corrector让机器人边做边纠错》](https://mp.weixin.qq.com/s/rfSPbtc2_fRpggXeBPPC3Q)
+- **2026.07:** 🤗 Featured in [Hugging Face Daily Papers](https://huggingface.co/papers/2607.01804).
+- **2026.07:** 🚀 Released the [paper](https://arxiv.org/abs/2607.01804), code, and [project page](https://zju-omniai.github.io/vla-corrector/).
+
 ---
 
 **VLA-Corrector** is a lightweight detect-and-correct inference framework for action-chunked Vision-Language-Action (VLA) policies. It addresses the open-loop blind spot created by fixed action horizons: fresh observations arrive during execution, but the policy continues following queued actions until the horizon ends.
 
 VLA-Corrector keeps the VLA backbone frozen and adds an external latent dynamics corrector. A Latent-space Vision Monitor (LVM) detects persistent mismatch between predicted and observed visual feature evolution; the system then truncates stale actions and invokes corrective replanning via Online Gradient Guidance (OGG).
 
-## Paper Figure
+## 🧭 Overview
 
 <p align="center">
   <img src="docs/assets/images/method_overview.png" alt="VLA-Corrector method overview" width="92%">
@@ -46,13 +59,13 @@ VLA-Corrector keeps the VLA backbone frozen and adds an external latent dynamics
 
 <p align="center"><b>VLA-Corrector method overview.</b></p>
 
-## Abstract
+## 📖 Abstract
 
 Action-chunked VLA policies reduce policy-call frequency and preserve temporal coherence by executing several future actions before querying the policy again. This design can fail in contact-rich manipulation, where small perturbations, pose drift, or slippage may compound inside the open-loop blind spot.
 
 VLA-Corrector mitigates this issue with an event-triggered adaptive action horizon. During stable execution it preserves the efficiency of long chunks. When latent visual dynamics indicate persistent drift, it truncates the current queue and applies OGG only to the next recovery query. The trainable component is an external lightweight corrector, not the full VLA backbone.
 
-## Method
+## 🧩 Method
 
 The paper organizes VLA-Corrector into four parts:
 
@@ -63,21 +76,21 @@ The paper organizes VLA-Corrector into four parts:
 
 The paper reports residual MLP correctors with approximately **38--42M parameters**, referred to as a lightweight ~40M MLP corrector.
 
-## Results
+## 📊 Results
 
 The following values summarize the paper's reported results. See the paper for complete protocols, task splits, and appendix tables.
 
 | Setting | Baseline | + VLA-Corrector | Reported change |
 | --- | ---: | ---: | ---: |
-| MetaWorld, PI0.5 avg. success | 48.70 | 64.35 | +15.65 |
-| MetaWorld, SmolVLA avg. success | 61.90 | 66.65 | +4.75 |
-| MetaWorld, X-VLA avg. success | 55.55 | 59.60 | +4.05 |
-| LIBERO, PI0.5 few-shot avg. success | 94.00 | 97.80 | +3.80 |
-| AgileX PiPER real-world avg. success | 55.6 | 73.3 | +17.7 |
+| MetaWorld, PI0.5 avg. success | 48.70 | **64.35** | **+15.65** |
+| MetaWorld, SmolVLA avg. success | 61.90 | **66.65** | **+4.75** |
+| MetaWorld, X-VLA avg. success | 55.55 | **59.60** | **+4.05** |
+| LIBERO, PI0.5 few-shot avg. success | 94.00 | **97.80** | **+3.80** |
+| AgileX PiPER real-world avg. success | 55.6 | **73.3** | **+17.7** |
 
 Additional analysis in the paper reports that truncation alone improves MetaWorld average success from 48.70% to 60.35%, while truncation plus OGG reaches 64.35%. The paper also reports that 83.7% of truncations occur in manually labeled critical phases.
 
-## Installation
+## 🛠️ Installation
 
 ```bash
 conda env create -f environment.yml
@@ -99,7 +112,7 @@ python -m pip install -r requirements.txt
 
 The exported environment name is `lerobot`. You can edit the `name:` field in `environment.yml` before creating the environment.
 
-## Data and Checkpoints
+## 📦 Data and Checkpoints
 
 This repository does **not** include datasets, raw demonstration data, training outputs, Hugging Face pretrained weights, fine-tuned VLA checkpoints, trained corrector checkpoints, wandb logs, or caches. The project page includes only compressed silent real-robot clips for visualization.
 
@@ -126,7 +139,7 @@ Known model names referenced by the code include:
 
 Fine-tuned checkpoints are not included. Please specify your own checkpoint paths with `--policy.path` and `--safety_model_path`.
 
-## Corrector Training
+## 🏋️ Corrector Training
 
 Latent extraction:
 
@@ -157,7 +170,7 @@ torchrun --nproc_per_node=1 -m siglip_dynamics.train \
   --checkpoint-dir <CORRECTOR_CHECKPOINT>
 ```
 
-## Evaluation
+## 🧪 Evaluation
 
 Main modified evaluation entry point:
 
@@ -202,7 +215,7 @@ python -m lerobot.scripts.lerobot_eval_modified_detection \
 
 SmolVLA and X-VLA use the same entry point with backbone-specific policy arguments. Full evaluation requires simulator dependencies, GPU resources, datasets, policy checkpoints, and trained corrector checkpoints.
 
-## Repository Structure
+## 🗂️ Repository Structure
 
 ```text
 .
@@ -216,19 +229,19 @@ SmolVLA and X-VLA use the same entry point with backbone-specific policy argumen
 └── requirements.txt
 ```
 
-## Citation
+## 📝 Citation
 
-The paper is available on arXiv: [https://arxiv.org/abs/2607.01804](https://arxiv.org/abs/2607.01804).
+If you find VLA-Corrector useful for your research, please consider giving this repository a ⭐ and citing our paper ([arXiv:2607.01804](https://arxiv.org/abs/2607.01804)):
 
 ```bibtex
-@article{pan2026vla,
-  title={VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon},
-  author={Pan, Yi and Pan, Miao and Lu, Qi and Huang, Jiaming and Zhang, Man and Huang, Siteng and Li, Xin and Zhang, Jie and Shen, Yongliang and Zhang, Xuhong and others},
-  journal={arXiv preprint arXiv:2607.01804},
-  year={2026}
+@inproceedings{pan2026vlacorrector,
+  title     = {VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon},
+  author    = {Pan, Yi and Pan, Miao and Lu, Qi and Huang, Jiaming and Zhang, Man and Huang, Siteng and Li, Xin and Zhang, Jie and Shen, Yongliang and Zhang, Xuhong and Zhang, Wenqi},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2026}
 }
 ```
 
-## Acknowledgements
+## 🙏 Acknowledgements
 
 This repository builds on LeRobot and the Hugging Face ecosystem, and references VLA backbones and benchmarks including PI0.5, SmolVLA, X-VLA, MetaWorld, and LIBERO. Please also cite the corresponding upstream projects when using this code.

@@ -9,6 +9,8 @@
 
   ### VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon
 
+  <p><b>NeurIPS 2026</b></p>
+
   <p>
     Yi Pan<sup>1</sup>, Miao Pan<sup>1</sup>, Qi Lu<sup>1</sup>, Jiaming Huang<sup>1</sup>,
     Man Zhang<sup>1</sup>, Siteng Huang<sup>2</sup>, Xin Li<sup>2</sup>, Jie Zhang<sup>1</sup>,
@@ -23,7 +25,11 @@
   [![Project Page](https://img.shields.io/badge/Project_Page-1A73E8?style=for-the-badge&logo=googlechrome&logoColor=white)](https://zju-omniai.github.io/vla-corrector/)
   [![Code](https://img.shields.io/badge/Code-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ZJU-OmniAI/vla-corrector)
   [![arXiv](https://img.shields.io/badge/arXiv-2607.01804-B31B1B?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2607.01804)
-  [![BibTeX](https://img.shields.io/badge/Cite-BibTeX-4C8C4A?style=for-the-badge&logo=googlescholar&logoColor=white)](#citation)
+  [![BibTeX](https://img.shields.io/badge/Cite-BibTeX-4C8C4A?style=for-the-badge&logo=googlescholar&logoColor=white)](#-citation)
+
+  [![NeurIPS 2026](https://img.shields.io/badge/NeurIPS-2026-4B44CE?style=for-the-badge)](https://neurips.cc/Conferences/2026)
+  [![机器之心](https://img.shields.io/badge/Press-%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83-07C160?style=for-the-badge&logo=wechat&logoColor=white)](https://mp.weixin.qq.com/s/rfSPbtc2_fRpggXeBPPC3Q)
+  [![Hugging Face Daily Paper](https://img.shields.io/badge/Hugging_Face-Daily_Paper-FFD21E?style=for-the-badge&logo=huggingface&logoColor=FFD21E)](https://huggingface.co/papers/2607.01804)
 
   <br/>
 </div>
@@ -32,13 +38,20 @@
   <video src="https://github.com/user-attachments/assets/eb2b70f7-f8d9-4d18-b85a-7014949fde7b" controls muted width="80%"></video>
 </div>
 
+## 🔥 最新动态
+
+- **2026.09:** 🎉 VLA-Corrector 被 **NeurIPS 2026** 接收！
+- **2026.09:** 📰 机器之心报道：[《VLA开环盲区，终于被堵上了：40M Corrector让机器人边做边纠错》](https://mp.weixin.qq.com/s/rfSPbtc2_fRpggXeBPPC3Q)
+- **2026.07:** 🤗 入选 [Hugging Face Daily Papers](https://huggingface.co/papers/2607.01804)。
+- **2026.07:** 🚀 [论文](https://arxiv.org/abs/2607.01804)、代码与[项目主页](https://zju-omniai.github.io/vla-corrector/)发布。
+
 ---
 
 **VLA-Corrector** 是一个面向 action-chunked Vision-Language-Action (VLA) 策略的轻量级 detect-and-correct 推理框架。它关注固定动作窗口带来的 open-loop blind spot：执行过程中新的观测已经到来，但策略仍可能继续执行队列中的旧动作，直到固定 horizon 结束。
 
 VLA-Corrector 不重训完整 VLA 主干，而是在推理时加入外部 latent dynamics corrector。Latent-space Vision Monitor (LVM) 比较预测与实际观测到的视觉特征演化；当检测到持续偏移时，系统截断 stale actions，并通过 Online Gradient Guidance (OGG) 触发纠错式 replanning。
 
-## 论文图
+## 🧭 方法总览
 
 <p align="center">
   <img src="docs/assets/images/method_overview.png" alt="VLA-Corrector method overview" width="92%">
@@ -46,13 +59,13 @@ VLA-Corrector 不重训完整 VLA 主干，而是在推理时加入外部 latent
 
 <p align="center"><b>VLA-Corrector 方法总览。</b></p>
 
-## 摘要
+## 📖 摘要
 
 Action-chunked VLA 通过一次生成多个未来动作来降低策略调用频率，并保持时间连续性。但在接触丰富的操作任务中，扰动、姿态漂移或滑移可能在 open-loop blind spot 内持续累积。
 
 VLA-Corrector 将固定动作 horizon 改造成事件触发的 adaptive action horizon。执行稳定时，它保留长 chunk 的效率；当 latent visual dynamics 显示持续偏移时，它截断当前动作队列，并只对下一次 recovery query 应用 OGG。可训练组件是外部轻量 corrector，而不是完整 VLA backbone。
 
-## 方法
+## 🧩 方法
 
 论文将 VLA-Corrector 组织为四个核心部分：
 
@@ -63,21 +76,21 @@ VLA-Corrector 将固定动作 horizon 改造成事件触发的 adaptive action h
 
 论文报告的 residual MLP corrector 参数量约为 **38--42M**，因此可视为轻量级约 40M MLP corrector。
 
-## 结果
+## 📊 结果
 
 以下数值概括论文报告的实验结果。完整协议、任务划分和附录表格请以论文为准。
 
 | 设置 | Baseline | + VLA-Corrector | 提升 |
 | --- | ---: | ---: | ---: |
-| MetaWorld, PI0.5 avg. success | 48.70 | 64.35 | +15.65 |
-| MetaWorld, SmolVLA avg. success | 61.90 | 66.65 | +4.75 |
-| MetaWorld, X-VLA avg. success | 55.55 | 59.60 | +4.05 |
-| LIBERO, PI0.5 few-shot avg. success | 94.00 | 97.80 | +3.80 |
-| AgileX PiPER real-world avg. success | 55.6 | 73.3 | +17.7 |
+| MetaWorld, PI0.5 avg. success | 48.70 | **64.35** | **+15.65** |
+| MetaWorld, SmolVLA avg. success | 61.90 | **66.65** | **+4.75** |
+| MetaWorld, X-VLA avg. success | 55.55 | **59.60** | **+4.05** |
+| LIBERO, PI0.5 few-shot avg. success | 94.00 | **97.80** | **+3.80** |
+| AgileX PiPER real-world avg. success | 55.6 | **73.3** | **+17.7** |
 
 论文还报告：在 MetaWorld 组件消融中，仅 truncation 将平均成功率从 48.70% 提升到 60.35%，truncation + OGG 达到 64.35%。此外，83.7% 的 truncations 发生在人工标注的关键阶段。
 
-## 环境安装
+## 🛠️ 环境安装
 
 ```bash
 conda env create -f environment.yml
@@ -99,7 +112,7 @@ python -m pip install -r requirements.txt
 
 导出的环境名为 `lerobot`。如需避免环境名冲突，可以在创建环境前修改 `environment.yml` 的 `name:` 字段。
 
-## 数据与权重
+## 📦 数据与权重
 
 本仓库**不包含**数据集、原始 demonstration data、训练输出、Hugging Face 预训练权重、微调后的 VLA checkpoint、训练后的 corrector checkpoint、wandb 日志或缓存。项目主页只包含压缩后的无声真机展示视频。
 
@@ -126,7 +139,7 @@ python -m pip install -r requirements.txt
 
 微调权重不包含在仓库中。请通过 `--policy.path` 和 `--safety_model_path` 指定自己的 checkpoint。
 
-## Corrector 训练
+## 🏋️ Corrector 训练
 
 Latent extraction:
 
@@ -157,7 +170,7 @@ torchrun --nproc_per_node=1 -m siglip_dynamics.train \
   --checkpoint-dir <CORRECTOR_CHECKPOINT>
 ```
 
-## 评测
+## 🧪 评测
 
 主要评测入口：
 
@@ -202,7 +215,7 @@ python -m lerobot.scripts.lerobot_eval_modified_detection \
 
 SmolVLA 和 X-VLA 使用同一评测入口，但需要设置对应 backbone 的 policy 参数。完整评测需要仿真依赖、GPU、数据集、policy checkpoint 和训练后的 corrector checkpoint。
 
-## 仓库结构
+## 🗂️ 仓库结构
 
 ```text
 .
@@ -216,22 +229,19 @@ SmolVLA 和 X-VLA 使用同一评测入口，但需要设置对应 backbone 的 
 └── requirements.txt
 ```
 
-## Citation
+## 📝 Citation
 
-论文已发布在 arXiv：[https://arxiv.org/abs/2607.01804](https://arxiv.org/abs/2607.01804)。
+如果 VLA-Corrector 对你的研究有帮助，欢迎给本仓库点个 ⭐，并引用我们的论文（[arXiv:2607.01804](https://arxiv.org/abs/2607.01804)）：
 
 ```bibtex
-@misc{pan2026vlacorrectorlightweightdetectandcorrectinference,
-      title={VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon},
-      author={Yi Pan and Miao Pan and Qi Lu and Jiaming Huang and Man Zhang and Siteng Huang and Xin Li and Jie Zhang and Yongliang Shen and Xuhong Zhang and Wenqi Zhang},
-      year={2026},
-      eprint={2607.01804},
-      archivePrefix={arXiv},
-      primaryClass={cs.RO},
-      url={https://arxiv.org/abs/2607.01804},
+@inproceedings{pan2026vlacorrector,
+  title     = {VLA-Corrector: Lightweight Detect-and-Correct Inference for Adaptive Action Horizon},
+  author    = {Pan, Yi and Pan, Miao and Lu, Qi and Huang, Jiaming and Zhang, Man and Huang, Siteng and Li, Xin and Zhang, Jie and Shen, Yongliang and Zhang, Xuhong and Zhang, Wenqi},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2026}
 }
 ```
 
-## 致谢
+## 🙏 致谢
 
 本仓库基于 LeRobot 和 Hugging Face 生态构建，并使用或参考 PI0.5、SmolVLA、X-VLA、MetaWorld 和 LIBERO 等 VLA backbone 与 benchmark。使用本代码时，也请引用相应上游项目。
