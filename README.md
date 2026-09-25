@@ -29,6 +29,7 @@
 
   [![NeurIPS 2026](https://img.shields.io/badge/NeurIPS-2026-4B44CE?style=for-the-badge)](https://neurips.cc/Conferences/2026)
   [![机器之心](https://img.shields.io/badge/Press-%E6%9C%BA%E5%99%A8%E4%B9%8B%E5%BF%83-07C160?style=for-the-badge&logo=wechat&logoColor=white)](https://mp.weixin.qq.com/s/rfSPbtc2_fRpggXeBPPC3Q)
+  [![具身智能之心](https://img.shields.io/badge/Press-%E5%85%B7%E8%BA%AB%E6%99%BA%E8%83%BD%E4%B9%8B%E5%BF%83-07C160?style=for-the-badge&logo=wechat&logoColor=white)](https://mp.weixin.qq.com/s?__biz=MzkyMDY0OTc1NA==&mid=2247540637&idx=1&sn=0f177736092e21a930e0d9dc40a2a583&chksm=c093b9a1a2fe4236d9240ee5817dc7758f3725d564d87936e8f0ab95ce63509a83c22b85b3d7#rd)
   [![Hugging Face Daily Paper](https://img.shields.io/badge/Hugging_Face-Daily_Paper-FFD21E?style=for-the-badge&logo=huggingface&logoColor=FFD21E)](https://huggingface.co/papers/2607.01804)
 
   <br/>
@@ -42,6 +43,7 @@
 
 - **2026.09:** 🎉 VLA-Corrector is accepted to **NeurIPS 2026**!
 - **2026.09:** 📰 Covered by 机器之心 (Synced): [《VLA开环盲区，终于被堵上了：40M Corrector让机器人边做边纠错》](https://mp.weixin.qq.com/s/rfSPbtc2_fRpggXeBPPC3Q)
+- **2026.07:** 📰 Covered by 具身智能之心: [《40M 补上开环盲区！VLA-Corrector 让 VLA 学会发现并纠错（浙大&达摩院）》](https://mp.weixin.qq.com/s?__biz=MzkyMDY0OTc1NA==&mid=2247540637&idx=1&sn=0f177736092e21a930e0d9dc40a2a583&chksm=c093b9a1a2fe4236d9240ee5817dc7758f3725d564d87936e8f0ab95ce63509a83c22b85b3d7#rd)
 - **2026.07:** 🤗 Featured in [Hugging Face Daily Papers](https://huggingface.co/papers/2607.01804).
 - **2026.07:** 🚀 Released the [paper](https://arxiv.org/abs/2607.01804), code, and [project page](https://zju-omniai.github.io/vla-corrector/).
 
