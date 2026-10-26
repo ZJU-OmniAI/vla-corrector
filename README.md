@@ -39,6 +39,11 @@
   <video src="https://github.com/user-attachments/assets/eb2b70f7-f8d9-4d18-b85a-7014949fde7b" controls muted width="80%"></video>
 </div>
 
+## Media Coverage · 媒体报道
+
+- **机器之心 · 2026.09** — [VLA开环盲区，终于被堵上了：40M Corrector让机器人边做边纠错](https://mp.weixin.qq.com/s/rfSPbtc2_fRpggXeBPPC3Q)
+- **具身智能之心 · 2026.07** — [40M 补上开环盲区！VLA-Corrector 让 VLA 学会发现并纠错（浙大&达摩院）](https://mp.weixin.qq.com/s?__biz=MzkyMDY0OTc1NA==&mid=2247540637&idx=1&sn=0f177736092e21a930e0d9dc40a2a583)
+
 ## 🔥 News
 
 - **2026.09:** 🎉 VLA-Corrector is accepted to **NeurIPS 2026**!
